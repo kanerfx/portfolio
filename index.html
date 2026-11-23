@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <meta name="description"
-        content="Renan Gomes — Desenvolvedor Full-Stack & IA. Portfólio: site de consultório odontológico, marketplace de freelancers, app Android Café Lavado.">
+        content="Renan Gomes, Desenvolvedor Full-Stack & IA. Portfólio: site de consultório odontológico, marketplace de freelancers, app Android Café Lavado.">
     <title>Renan Gomes <> Desenvolvedor Full-Stack & IA · Portfólio</title>
     <link rel="icon"
         href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e20'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='30' fill='%23aab0f7' text-anchor='middle'%3ERG%3C/text%3E%3C/svg%3E">
@@ -202,7 +202,7 @@
         }
 
         /* YOUR PHOTO: save the image as "renan.jpg" next to this file.
-   The crop below is tuned to center on your face — tweak left/top if you want to re-frame. */
+   The crop below is tuned to center on your face, tweak left/top if you want to re-frame. */
         .avatar {
             width: 42px;
             height: 42px;
@@ -762,6 +762,23 @@
             place-content: center;
             text-align: center;
             z-index: 2
+        }
+
+        .orbit-core {
+            overflow: visible
+        }
+
+        .orbit-core img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%
+        }
+
+        .sat-dot svg {
+            width: 24px;
+            height: 24px
         }
 
         .orbit-core::before {
@@ -3177,8 +3194,8 @@
         <a class="m-link" href="#path"><i>04</i><span data-en="Path">Trajetória</span></a>
         <a class="m-link" href="#contact"><i>05</i><span data-en="Contact">Contato</span></a>
         <p class="menu-foot"><span
-                data-en="rgomespinto19@gmail.com · Garopaba, SC — remote or hybrid">rgomespinto19@gmail.com · Garopaba,
-                SC — remoto ou híbrido</span></p>
+                data-en="rgomespinto19@gmail.com · Garopaba, SC, remote or hybrid">rgomespinto19@gmail.com · Garopaba,
+                SC, remoto ou híbrido</span></p>
     </div>
 
     <main>
@@ -3188,7 +3205,7 @@
             <span class="plus-mark pm2" aria-hidden="true">+</span>
 
             <div class="hero-copy">
-                <p class="overline" data-reveal data-en="PORTFOLIO — FULL-STACK DEVELOPER &amp; AI">PORTFÓLIO —
+                <p class="overline" data-reveal data-en="PORTFOLIO, FULL-STACK DEVELOPER &amp; AI">PORTFÓLIO,
                     DESENVOLVEDOR FULL-STACK &amp; IA</p>
                 <h1 aria-label="Renan Gomes">
                     <span class="line" data-split>RENAN</span>
@@ -3199,7 +3216,7 @@
                 <div class="hero-meta" data-reveal style="--d:.4s">
                     <span><svg>
                             <use href="#i-pin" />
-                        </svg><span data-en="Garopaba, SC — Brazil">Garopaba, SC — Brasil</span></span>
+                        </svg><span data-en="Garopaba, SC, Brazil">Garopaba, SC, Brasil</span></span>
                     <span><svg>
                             <use href="#i-mail" />
                         </svg>rgomespinto19@gmail.com</span>
@@ -3217,7 +3234,7 @@
                         </svg></a>
                 </div>
                 <div class="hero-badges" data-reveal style="--d:.6s">
-                    <span data-en="Fluent English — C2">Inglês fluente — C2</span>
+                    <span data-en="Fluent English, C2">Inglês fluente, C2</span>
                     <span data-en="IFSC · class of 2027">IFSC · conclusão 2027</span>
                     <span data-en="Remote or hybrid">Remoto ou híbrido</span>
                 </div>
@@ -3230,16 +3247,31 @@
                     <line id="ol2" />
                     <line id="ol3" />
                 </svg>
-                <div class="orbit-core"><b>RG</b><span>PORTFOLIO</span></div>
-                <a class="sat" href="#p-dental" data-r="0.44" data-sp="0.16" data-ph="-0.6"><span
-                        class="sat-dot">01</span><span class="sat-tip" data-en="Dental Clinic Website">Site —
-                        Consultório Odontológico</span></a>
-                <a class="sat" href="#p-freela" data-r="0.335" data-sp="-0.13" data-ph="1.7"><span
-                        class="sat-dot">02</span><span class="sat-tip" data-en="Freelancer Marketplace">Marketplace de
+                <div class="orbit-core"><img src="img/renan2.jpg" alt="Renan Gomes"></div>
+                <a class="sat" href="#p-dental" data-r="0.44" data-sp="0.16" data-ph="-0.6"><span class="sat-dot"><svg
+                            viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path
+                                d="M7.5 3.5c-2.2 0-3.5 1.7-3.5 4 0 2 .8 3.4 1.3 5.2.5 1.9.6 4.3 1.4 7 .3 1 1.6 1.1 2-.1.6-1.800.8-4 1.800-4h1c1 0 1.200 2.200 1.800 4 .4 1.200 1.700 1.100 2 .1.800-2.700.9-5.100 1.400-7 .5-1.800 1.300-3.200 1.300-5.200 0-2.300-1.300-4-3.500-4-1.600 0-2.500.8-4.500.8s-2.900-.8-4.500-.8z" />
+                        </svg></span><span class="sat-tip" data-en="Dental Clinic Website">Site, Consultório
+                        Odontológico</span></a>
+                <a class="sat" href="#p-freela" data-r="0.335" data-sp="-0.13" data-ph="1.7"><span class="sat-dot"><svg
+                            viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="9" cy="8" r="3.2" />
+                            <path d="M3 20c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500" />
+                            <circle cx="17" cy="9" r="2.500" />
+                            <path d="M17 14.500c2.500 0 4.500 1.700 4.500 4.500" />
+                        </svg></span><span class="sat-tip" data-en="Freelancer Marketplace">Marketplace de
                         Freelancers</span></a>
-                <a class="sat" href="#p-cafe" data-r="0.23" data-sp="0.24" data-ph="3.6"><span
-                        class="sat-dot">03</span><span class="sat-tip">Café Lavado · Android</span></a>
-                <p class="orbit-cap" data-en="EACH SATELLITE IS A SHIPPED PROJECT — CLICK ONE">CADA SATÉLITE É UM
+                <a class="sat" href="#p-cafe" data-r="0.23" data-sp="0.24" data-ph="3.6"><span class="sat-dot"><svg
+                            viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z" />
+                            <path d="M16 10h1.500a2.500 2.500 0 0 1 0 5H16" />
+                            <path d="M8 3.500c-.8 1 .8 1.500 0 2.500M12 3.500c-.8 1 .8 1.500 0 2.500" />
+                        </svg></span><span class="sat-tip">Café Lavado · Android</span></a>
+                <p class="orbit-cap" data-en="EACH SATELLITE IS A SHIPPED PROJECT, CLICK ONE">CADA SATÉLITE É UM
                     PROJETO NO AR! CLIQUE PARA ACESSAR!</p>
             </div>
 
@@ -3308,7 +3340,7 @@
                             plataforma web: requisitos, desenvolvimento, testes, documentação e operação em produção.
                         </p>
                         <p class="about-sub" data-reveal style="--d:.15s"
-                            data-en="Solid full-stack base with JavaScript/TypeScript, Node.js, Python and React, REST APIs and agile methods — with software quality and daily AI usage woven into how I work. Detail-oriented, bilingual (English C2), and available for remote or hybrid internships.">
+                            data-en="Solid full-stack base with JavaScript/TypeScript, Node.js, Python and React, REST APIs and agile methods, with software quality and daily AI usage woven into how I work. Detail-oriented, bilingual (English C2), and available for remote or hybrid internships.">
                             Base sólida em desenvolvimento full-stack com JavaScript/TypeScript, Node.js, Python e
                             React, APIs REST e metodologias ágeis; com qualidade de software e uso diário de IA no
                             fluxo de trabalho. Perfil detalhista, bilíngue (inglês C2) e disponível para estágio remoto
@@ -3318,7 +3350,7 @@
                         <dl class="facts">
                             <div class="fact">
                                 <dt data-en="BASE">BASE</dt>
-                                <dd data-en="Garopaba, SC — Brazil">Garopaba, SC — Brasil</dd>
+                                <dd data-en="Garopaba, SC, Brazil">Garopaba, SC, Brasil</dd>
                             </div>
                             <div class="fact">
                                 <dt data-en="AVAILABILITY">DISPONIBILIDADE</dt>
@@ -3326,7 +3358,7 @@
                             </div>
                             <div class="fact">
                                 <dt data-en="GRADUATION">GRADUAÇÃO</dt>
-                                <dd data-en="IFSC — Internet Systems, 2027">IFSC — Sistemas para Internet, 2027</dd>
+                                <dd data-en="IFSC, Internet Systems, 2027">IFSC, Sistemas para Internet, 2027</dd>
                             </div>
                             <div class="fact">
                                 <dt data-en="PREVIOUS DEGREE">DIPLOMA ANTERIOR</dt>
@@ -3340,7 +3372,7 @@
                                 <dt data-en="EMAIL">E-MAIL</dt>
                                 <dd>rgomespinto19@gmail.com
                                     <button class="icon-btn" data-copy="rgomespinto19@gmail.com"
-                                        data-toast="E-mail copiado — até já!" data-toast-en="Email copied — talk soon!"
+                                        data-toast="E-mail copiado, até já!" data-toast-en="Email copied, talk soon!"
                                         aria-label="Copiar e-mail" data-en-aria="Copy email"><svg>
                                             <use href="#i-copy" />
                                         </svg></button>
@@ -3358,7 +3390,7 @@
                                     <span class="ldot" style="--i:1"></span><span class="ldot"
                                         style="--i:2"></span><span class="ldot" style="--i:3"></span><span class="ldot"
                                         style="--i:4"></span><span class="ldot" style="--i:5"></span>
-                                </span><i data-en="FLUENT — C2">FLUENTE — C2</i></div>
+                                </span><i data-en="FLUENT, C2">FLUENTE, C2</i></div>
                         </div>
                     </div>
                 </div>
@@ -3368,10 +3400,10 @@
                             data-en="years running a web platform in production">anos conduzindo uma plataforma web em
                             produção</span></div>
                     <div class="stat rv-child"><span class="stat-n"><b data-count="3" data-pad="2">00</b></span><span
-                            class="stat-l" data-en="featured builds on this page — all mine">builds em destaque nesta
-                            página — todos meus</span></div>
+                            class="stat-l" data-en="featured builds on this page, all mine">builds em destaque nesta
+                            página, todos meus</span></div>
                     <div class="stat rv-child"><span class="stat-n"><b>C2</b></span><span class="stat-l"
-                            data-en="English proficiency — fluent, daily use">inglês fluente — uso diário</span></div>
+                            data-en="English proficiency, fluent, daily use">inglês fluente, uso diário</span></div>
                     <div class="stat rv-child"><span class="stat-n"><b data-count="100"
                                 data-pad="0">0</b><i>%</i></span><span class="stat-l"
                             data-en="remote-ready, hybrid-friendly">pronto para remoto, aberto a híbrido</span></div>
@@ -3386,7 +3418,7 @@
                     <h2 data-en="SELECTED WORK">TRABALHOS SELECIONADOS</h2><span class="rule"></span>
                 </div>
                 <p class="work-intro" data-reveal
-                    data-en="Three builds, three surfaces — web, full-stack and Android. Each one walked through the full cycle described in my résumé: requirements, code, tests, docs, ship.">
+                    data-en="Three builds, three surfaces, web, full-stack and Android. Each one walked through the full cycle described in my résumé: requirements, code, tests, docs, ship.">
                     Três builds: web, full-stack e Android. Cada um percorreu o ciclo completo
                     descrito no meu currículo, contendo requisitos, código, testes, documentação e entrega.</p>
 
@@ -3428,7 +3460,7 @@
                                                 <p class="m-kicker">CLÍNICA ODONTOLÓGICA</p>
                                                 <h3>O cuidado que o seu sorriso merece.</h3>
                                                 <p>Tratamentos modernos, diagnóstico preciso e acolhimento do início ao
-                                                    fim — para toda a família.</p>
+                                                    fim, para toda a família.</p>
                                                 <div class="md-cta"><span class="m-btn">Agendar consulta</span><span
                                                         class="m-btn ghost">Conhecer a clínica</span></div>
                                             </div>
@@ -3467,10 +3499,10 @@
                                         <blockquote class="md-quote">
                                             <p>"Atendimento humano e sem dor. Virei paciente da casa e não troco por
                                                 nada."</p>
-                                            <cite>MARTA S. — PACIENTE DESDE 2019</cite>
+                                            <cite>MARTA S., PACIENTE DESDE 2019</cite>
                                         </blockquote>
                                         <footer class="md-foot">
-                                            <span><b>Agende sua avaliação</b><small>Rua das Araucárias, 120 — Centro ·
+                                            <span><b>Agende sua avaliação</b><small>Rua das Araucárias, 120, Centro ·
                                                     (48) 3000-0000</small></span>
                                             <span class="m-btn">Falar no WhatsApp</span>
                                         </footer>
@@ -3478,14 +3510,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR — PAUSE TO FREEZE">TOUR AUTOMÁTICO —
-                                PAUSE PARA CONGELAR</span><span>CLIP 01 / 03</span></div>
+                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR, PAUSE TO FREEZE">TOUR AUTOMÁTICO, PAUSE
+                                PARA CONGELAR</span><span>CLIP 01 / 03</span></div>
                     </div>
 
                     <div class="meta">
                         <div class="p-index" data-reveal><span class="num">01</span><span class="kind"
                                 data-en="WEBSITE · LANDING PAGE">SITE · LANDING PAGE</span></div>
-                        <h3 data-reveal data-en="Dr. Guilherme Sanchez — Dental Clinic">Dr. Guilherme Sanchez,
+                        <h3 data-reveal data-en="Dr. Guilherme Sanchez, Dental Clinic">Dr. Guilherme Sanchez,
                             Consultório Odontológico</h3>
                         <div class="repo-line" data-reveal>
                             <code>~/kanerfx/dr_guilherme_sanchez_consultorio_odontologico</code>
@@ -3497,7 +3529,7 @@
                                 </svg></button>
                         </div>
                         <p data-reveal
-                            data-en="A complete institutional website for a dental practice: responsive layout, clear service presentation and an appointment flow designed to turn visitors into booked consultations — trust built through structure, not noise.">
+                            data-en="A complete institutional website for a dental practice: responsive layout, clear service presentation and an appointment flow designed to turn visitors into booked consultations, trust built through structure, not noise.">
                             Site institucional completo para um consultório odontológico: layout responsivo,
                             apresentação clara dos serviços e um fluxo de agendamento pensado para transformar
                             visitantes em consultas marcadas.</p>
@@ -3520,8 +3552,8 @@
                                 </svg></a>
                         </div>
                         <p class="xref" data-reveal
-                            data-en="Résumé, p.01 — client-work discipline: requirements → development → release.">
-                            Currículo, p.01 — disciplina de trabalho com clientes: requisitos → desenvolvimento →
+                            data-en="Résumé, p.01, client-work discipline: requirements → development → release.">
+                            Currículo, p.01, disciplina de trabalho com clientes: requisitos → desenvolvimento →
                             entrega.</p>
                     </div>
                 </article>
@@ -3558,7 +3590,7 @@
                                             <span class="m-btn">Começar</span>
                                         </nav>
                                         <header class="mf-hero">
-                                            <p class="m-kicker">PROJETO INTEGRADOR — MARKETPLACE</p>
+                                            <p class="m-kicker">PROJETO INTEGRADOR, MARKETPLACE</p>
                                             <h3>O talento certo para cada projeto.</h3>
                                             <div class="mf-search"><svg>
                                                     <use href="#i-search" />
@@ -3648,20 +3680,20 @@
                                         <div class="mf-band"><span><b>Pronto para começar?</b><small>Cadastre-se grátis
                                                     e publique seu primeiro projeto.</small></span><span
                                                 class="m-btn">Criar conta</span></div>
-                                        <div class="mf-foot">FREELAHUB — PROJETO INTEGRADOR · TURMA 2024</div>
+                                        <div class="mf-foot">FREELAHUB, PROJETO INTEGRADOR · TURMA 2024</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR — PAUSE TO FREEZE">TOUR AUTOMÁTICO —
-                                PAUSE PARA CONGELAR</span><span>CLIP 02 / 03</span></div>
+                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR, PAUSE TO FREEZE">TOUR AUTOMÁTICO, PAUSE
+                                PARA CONGELAR</span><span>CLIP 02 / 03</span></div>
                     </div>
 
                     <div class="meta">
                         <div class="p-index" data-reveal><span class="num">02</span><span class="kind"
                                 data-en="FULL-STACK WEB · ACADEMIC PROJECT">WEB FULL-STACK · PROJETO ACADÊMICO</span>
                         </div>
-                        <h3 data-reveal data-en="FreelaHub — Freelancer Marketplace">FreelaHub: Marketplace de
+                        <h3 data-reveal data-en="FreelaHub, Freelancer Marketplace">FreelaHub: Marketplace de
                             Freelancers</h3>
                         <div class="repo-line" data-reveal>
                             <code>~/kanerfx/freelancer_website_pi_1</code>
@@ -3672,7 +3704,7 @@
                                 </svg></button>
                         </div>
                         <p data-reveal
-                            data-en="A marketplace connecting clients to freelance talent — browsing, search and a hiring flow with protected payments. Built as a course integrative project, covering the full development cycle from planning to delivery.">
+                            data-en="A marketplace connecting clients to freelance talent, browsing, search and a hiring flow with protected payments. Built as a course integrative project, covering the full development cycle from planning to delivery.">
                             Um marketplace que conecta clientes a talentos freelancer; navegação, busca e um fluxo de
                             contratação com pagamento protegido. Construído como projeto integrador do curso, cobrindo o
                             ciclo completo de desenvolvimento, do planejamento à entrega.</p>
@@ -3696,7 +3728,7 @@
                                 </svg></a>
                         </div>
                         <p class="xref" data-reveal
-                            data-en="Résumé, p.01 — REST APIs &amp; agile methods applied end-to-end.">Currículo, p.01 —
+                            data-en="Résumé, p.01, REST APIs &amp; agile methods applied end-to-end.">Currículo, p.01,
                             APIs REST e metodologias ágeis aplicadas de ponta a ponta.</p>
                     </div>
                 </article>
@@ -3760,7 +3792,7 @@
                                             <p class="p-sub">Baseado no seu último preparo, hoje a recomendação é:</p>
                                             <div class="p-card">
                                                 <span class="tag">RECOMENDAÇÃO DO DIA</span>
-                                                <p class="nm">V60 — Etiópia Yirgacheffe</p>
+                                                <p class="nm">V60, Etiópia Yirgacheffe</p>
                                                 <p class="nt">Processo lavado · notas de jasmim, limão e chá preto.</p>
                                                 <div class="row">
                                                     <span class="p-chip">relação 1:15</span>
@@ -3843,7 +3875,7 @@
                                                         <use href="#i-bell" />
                                                     </svg></button>
                                             </div>
-                                            <p class="p-kicker">GUIA — V60 · RELAÇÃO 1:15</p>
+                                            <p class="p-kicker">GUIA, V60 · RELAÇÃO 1:15</p>
                                             <div class="brew-wrap">
                                                 <svg viewBox="0 0 196 196">
                                                     <circle class="brew-track" cx="98" cy="98" r="86" />
@@ -3856,7 +3888,7 @@
                                             <div class="brew-chips"><span>água 250 g</span><span>café 16,6
                                                     g</span><span>moagem média</span></div>
                                             <ul class="brew-steps" id="brewSteps">
-                                                <li data-at="0"><span class="t">0:00</span>Bloom — despeje 50 g e espere
+                                                <li data-at="0"><span class="t">0:00</span>Bloom, despeje 50 g e espere
                                                 </li>
                                                 <li data-at="45"><span class="t">0:45</span>Primeira vazão, em círculos
                                                 </li>
@@ -3888,7 +3920,7 @@
                     <div class="meta">
                         <div class="p-index" data-reveal><span class="num">03</span><span class="kind"
                                 data-en="MOBILE · ANDROID APP">MOBILE · APP ANDROID</span></div>
-                        <h3 data-reveal data-en="Café Lavado — Specialty Coffee Companion">Café Lavado, App de Café
+                        <h3 data-reveal data-en="Café Lavado, Specialty Coffee Companion">Café Lavado, App de Café
                             Especial</h3>
                         <div class="repo-line" data-reveal>
                             <code>~/kanerfx/cafe-lavado</code>
@@ -3899,7 +3931,7 @@
                                 </svg></button>
                         </div>
                         <p data-reveal
-                            data-en="An Android companion for specialty-coffee lovers: a browsable menu, daily brew recommendations and guided brew timers with step-by-step extraction cues — named after the washed (lavado) process that defines a clean cup.">
+                            data-en="An Android companion for specialty-coffee lovers: a browsable menu, daily brew recommendations and guided brew timers with step-by-step extraction cues, named after the washed (lavado) process that defines a clean cup.">
                             Um companion Android para quem ama café especial: cardápio navegável, recomendações diárias
                             de preparo e timers guiados com etapas de extração em tempo real. Batizado pelo processo
                             lavado que define uma xícara limpa e doce.</p>
@@ -3920,8 +3952,8 @@
                                 </svg></a>
                         </div>
                         <p class="xref" data-reveal
-                            data-en="Résumé, p.01 — Java fundamentals &amp; AI-assisted daily workflow.">Currículo, p.01
-                            — fundamentos de Java &amp; fluxo diário assistido por IA.</p>
+                            data-en="Résumé, p.01, Java fundamentals &amp; AI-assisted daily workflow.">Currículo, p.01,
+                            fundamentos de Java &amp; fluxo diário assistido por IA.</p>
                     </div>
                 </article>
             </div>
@@ -4045,7 +4077,7 @@
                     </div>
                 </div>
                 <p class="stack-note" data-reveal
-                    data-en="Full list on my résumé — &quot;Competências Técnicas&quot;, page 01.">Lista completa no meu
+                    data-en="Full list on my résumé, &quot;Competências Técnicas&quot;, page 01.">Lista completa no meu
                     currículo --- "Competências Técnicas", página 01.</p>
             </div>
         </section>
@@ -4059,14 +4091,14 @@
                 <ol class="tl" data-reveal data-stagger>
                     <li class="tl-item rv-child">
                         <span class="tl-dot"></span>
-                        <p class="tl-period">JUL 2024 — JUL 2026</p>
+                        <p class="tl-period">JUL 2024 → JUL 2026</p>
                         <h3 data-en="Founder &amp; Software Developer">Fundador &amp; Desenvolvedor de Software</h3>
                         <p class="tl-org" data-en="Concierge – CCG · Garopaba, SC (remote)">Concierge – CCG · Garopaba,
                             SC (remoto)</p>
                         <ul class="hl">
                             <li
-                                data-en="Ran the company's web platform end-to-end — requirements, development, delivery and production operation.">
-                                Conduzi a plataforma web da empresa de ponta a ponta — requisitos, desenvolvimento,
+                                data-en="Ran the company's web platform end-to-end, requirements, development, delivery and production operation.">
+                                Conduzi a plataforma web da empresa de ponta a ponta, requisitos, desenvolvimento,
                                 entrega e operação em produção.</li>
                             <li
                                 data-en="Built and documented REST API integrations, keeping data consistent and the codebase maintainable.">
@@ -4080,10 +4112,10 @@
                     </li>
                     <li class="tl-item rv-child">
                         <span class="tl-dot"></span>
-                        <p class="tl-period" data-en="IN PROGRESS — EXPECTED 2027">EM ANDAMENTO — CONCLUSÃO 2027</p>
+                        <p class="tl-period" data-en="IN PROGRESS, EXPECTED 2027">EM ANDAMENTO, CONCLUSÃO 2027</p>
                         <h3 data-en="Internet Systems Technology (Technologist)">Tecnólogo em Sistemas para Internet
                         </h3>
-                        <p class="tl-org">IFSC — Instituto Federal de Santa Catarina</p>
+                        <p class="tl-org">IFSC, Instituto Federal de Santa Catarina</p>
                         <ul class="hl">
                             <li
                                 data-en="Focus on software development: programming logic, web programming and databases.">
@@ -4095,11 +4127,11 @@
                         <span class="tl-dot"></span>
                         <p class="tl-period" data-en="CONCLUDED NOV 2024">CONCLUÍDO EM NOV 2024</p>
                         <h3 data-en="Biotechnology Technician">Técnico em Biotecnologia</h3>
-                        <p class="tl-org">IFSC — Instituto Federal de Santa Catarina</p>
+                        <p class="tl-org">IFSC, Instituto Federal de Santa Catarina</p>
                         <ul class="hl">
                             <li
-                                data-en="Before code, cells — the lab discipline carried straight into how I test software.">
-                                Antes do código, células — a disciplina de laboratório virou minha forma de testar
+                                data-en="Before code, cells, the lab discipline carried straight into how I test software.">
+                                Antes do código, células, a disciplina de laboratório virou minha forma de testar
                                 software.</li>
                         </ul>
                     </li>
@@ -4116,11 +4148,11 @@
                 <h2 class="big" data-reveal data-en="Let's build something worth <em>shipping.</em>">Vamos construir
                     algo que valha a pena <em>entregar.</em></h2>
                 <p class="lead" data-reveal style="--d:.12s"
-                    data-en="I'm looking for an internship where I can own features end-to-end — remote or hybrid, from Garopaba or anywhere.">
+                    data-en="I'm looking for an internship where I can own features end-to-end, remote or hybrid, from Garopaba or anywhere.">
                     Estou em busca de um estágio em que eu possa cuidar de features de ponta a ponta, remoto ou
                     híbrido, de Garopaba para qualquer lugar.</p>
-                <button class="mail-btn" data-copy="rgomespinto19@gmail.com" data-toast="E-mail copiado — até já!"
-                    data-toast-en="Email copied — talk soon!" aria-label="Copiar e-mail" data-en-aria="Copy email"
+                <button class="mail-btn" data-copy="rgomespinto19@gmail.com" data-toast="E-mail copiado, até já!"
+                    data-toast-en="Email copied, talk soon!" aria-label="Copiar e-mail" data-en-aria="Copy email"
                     data-reveal style="--d:.22s">
                     <svg>
                         <use href="#i-mail" />
@@ -4141,7 +4173,7 @@
                         </svg>WhatsApp</a>
                 </div>
                 <p class="avail" data-reveal style="--d:.4s"><span class="pulse-dot"></span><span
-                        data-en="AVAILABLE FOR INTERNSHIPS — REMOTE OR HYBRID · GAROPABA, SC (BRT)">DISPONÍVEL PARA
+                        data-en="AVAILABLE FOR INTERNSHIPS, REMOTE OR HYBRID · GAROPABA, SC (BRT)">DISPONÍVEL PARA
                         ESTÁGIO; REMOTO OU HÍBRIDO · GAROPABA, SC (BRT)</span></p>
             </div>
         </section>
@@ -4152,7 +4184,7 @@
             <span>© <span id="year">2025</span> RENAN GOMES <> <span data-en="DESIGNED &amp; CODED FROM SCRATCH">DESIGN
                         E
                         CÓDIGO DO ZERO</span></span>
-            <span data-en="VISUAL IDENTITY CARRIED OVER FROM MY RÉSUMÉ — SAME STARS, SAME NAVY">IDENTIDADE VISUAL
+            <span data-en="VISUAL IDENTITY CARRIED OVER FROM MY RÉSUMÉ, SAME STARS, SAME NAVY">IDENTIDADE VISUAL
                 HERDADA DO MEU CURRÍCULO - MESMAS ESTRELAS, MESMO AZUL-MARINHO</span>
             <a class="to-top" href="#top"><svg>
                     <use href="#i-down" />
@@ -4166,7 +4198,7 @@
 
     <script>
         /* =====================================================================
-           REAL MEDIA — DROP YOUR ACTUAL SCREENSHOTS / CLIPS HERE
+           REAL MEDIA, DROP YOUR ACTUAL SCREENSHOTS / CLIPS HERE
            ---------------------------------------------------------------------
            Each project ships with a stylized LIVE recreation. When you have
            real assets:
@@ -4194,7 +4226,7 @@
         }, true);
 
         /* =====================================================================
-           I18N — PT-BR (default) ⇄ EN
+           I18N, PT-BR (default) ⇄ EN
            Every translatable element carries data-en with its English HTML.
            The Portuguese source is captured from the DOM on first swap.
         ===================================================================== */
@@ -4206,7 +4238,7 @@
                 en: 'Renan G.; Full-Stack Developer - Portfolio'
             },
             roles: {
-                pt: ['desenvolvedor full-stack', 'fundador na Concierge – CCG', 'IFSC — conclusão 2027', 'construtor assistido por IA'],
+                pt: ['desenvolvedor full-stack', 'fundador na Concierge – CCG', 'IFSC, conclusão 2027', 'construtor assistido por IA'],
                 en: ['full-stack developer', 'founder @ Concierge – CCG', 'IFSC - class of 2027', 'AI-assisted builder']
             }
         };
