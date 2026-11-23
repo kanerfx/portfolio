@@ -1,0 +1,4403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="description"
+        content="Renan Gomes — Desenvolvedor Full-Stack & IA. Portfólio: site de consultório odontológico, marketplace de freelancers, app Android Café Lavado.">
+    <title>Renan Gomes <> Desenvolvedor Full-Stack & IA · Portfólio</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e20'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='30' fill='%23aab0f7' text-anchor='middle'%3ERG%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        /* ============ TOKENS & BASE ============ */
+        :root {
+            --bg: #080c1d;
+            --bg-2: #0b1128;
+            --panel: #101636;
+            --line: rgba(168, 175, 245, .16);
+            --line-strong: rgba(168, 175, 245, .34);
+            --text: #eef0fb;
+            --muted: #a6acdf;
+            --faint: #6d739f;
+            --accent: #aab0f7;
+            --accent-2: #c7cbff;
+            --accent-ink: #0b1030;
+            --good: #5ee6a8;
+            --rec: #ff5c7a;
+            --font-d: 'Space Grotesk', sans-serif;
+            --font-m: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-d);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--accent-ink)
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img,
+        svg {
+            display: block
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px
+        }
+
+        section,
+        article {
+            scroll-margin-top: 84px
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            opacity: .038;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+        }
+
+        #stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0
+        }
+
+        main {
+            position: relative;
+            z-index: 2
+        }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding-inline: clamp(20px, 4vw, 44px)
+        }
+
+        .sec {
+            padding: 110px 0
+        }
+
+        @media (pointer:fine) {
+
+            .has-cursor,
+            .has-cursor a,
+            .has-cursor button {
+                cursor: none
+            }
+        }
+
+        .cursor-dot,
+        .cursor-ring {
+            position: fixed;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .has-cursor .cursor-dot,
+        .has-cursor .cursor-ring {
+            opacity: 1
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-2)
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(170, 176, 247, .55)
+        }
+
+        .cursor-ring.big {
+            border-color: var(--accent-2)
+        }
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background: var(--accent);
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            z-index: 70
+        }
+
+        /* ============ NAV ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            transition: .35s
+        }
+
+        .nav.scrolled {
+            background: rgba(8, 12, 29, .82);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .nav-in {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px clamp(20px, 4vw, 44px);
+            max-width: 1320px;
+            margin: 0 auto
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        /* YOUR PHOTO: save the image as "renan.jpg" next to this file.
+   The crop below is tuned to center on your face — tweak left/top if you want to re-frame. */
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            flex: none;
+            border: 1px solid var(--line-strong);
+            background: var(--panel)
+        }
+
+        .avatar img {
+            position: absolute;
+            width: 200%;
+            height: auto;
+            left: -7px;
+            top: -20px
+        }
+
+        .avatar.noimg::after {
+            content: 'RG';
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font: 600 12px var(--font-m);
+            color: var(--accent-2)
+        }
+
+        .logo b {
+            font: 600 14px var(--font-d);
+            letter-spacing: .02em
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center
+        }
+
+        .nav-links a {
+            font: 500 11.5px var(--font-m);
+            letter-spacing: .18em;
+            color: var(--muted);
+            position: relative;
+            padding: 4px 0
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 1px;
+            width: 100%;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .35s
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font: 600 10.5px var(--font-m);
+            letter-spacing: .16em;
+            color: var(--accent-2);
+            background: none;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            padding: 9px 14px;
+            transition: .25s
+        }
+
+        .lang-btn svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px)
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font: 500 10.5px var(--font-m);
+            letter-spacing: .12em;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 14px
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--good);
+            animation: pulseDot 2s ease-out infinite;
+            flex: none
+        }
+
+        @keyframes pulseDot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(94, 230, 168, .45)
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(94, 230, 168, 0)
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(94, 230, 168, 0)
+            }
+        }
+
+        .burger {
+            display: none;
+            background: none;
+            border: 1px solid var(--line-strong);
+            border-radius: 9px;
+            width: 40px;
+            height: 38px;
+            position: relative;
+            z-index: 80
+        }
+
+        .burger span {
+            position: absolute;
+            left: 11px;
+            right: 11px;
+            height: 1.5px;
+            background: var(--accent-2);
+            transition: .35s
+        }
+
+        .burger span:nth-child(1) {
+            top: 14px
+        }
+
+        .burger span:nth-child(2) {
+            top: 22px
+        }
+
+        body.menu-open .burger span:nth-child(1) {
+            top: 18px;
+            transform: rotate(45deg)
+        }
+
+        body.menu-open .burger span:nth-child(2) {
+            top: 18px;
+            transform: rotate(-45deg)
+        }
+
+        .menu {
+            position: fixed;
+            inset: 0;
+            z-index: 55;
+            background: rgba(7, 10, 26, .96);
+            backdrop-filter: blur(18px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 9vw;
+            opacity: 0;
+            visibility: hidden;
+            transition: .45s
+        }
+
+        body.menu-open {
+            overflow: hidden
+        }
+
+        body.menu-open .menu {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .menu a.m-link {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            font: 600 clamp(30px, 8vw, 44px)/1.35 var(--font-d);
+            letter-spacing: -.01em;
+            padding: 8px 0;
+            opacity: 0;
+            transform: translateY(22px);
+            transition: .5s
+        }
+
+        .menu a.m-link i {
+            font: 500 11px var(--font-m);
+            color: var(--faint);
+            font-style: normal
+        }
+
+        .menu a.m-link:hover {
+            color: var(--accent-2)
+        }
+
+        body.menu-open .m-link {
+            opacity: 1;
+            transform: none
+        }
+
+        body.menu-open .m-link:nth-child(1) {
+            transition-delay: .08s
+        }
+
+        body.menu-open .m-link:nth-child(2) {
+            transition-delay: .14s
+        }
+
+        body.menu-open .m-link:nth-child(3) {
+            transition-delay: .2s
+        }
+
+        body.menu-open .m-link:nth-child(4) {
+            transition-delay: .26s
+        }
+
+        body.menu-open .m-link:nth-child(5) {
+            transition-delay: .32s
+        }
+
+        .menu-foot {
+            margin-top: 40px;
+            font: 500 11px var(--font-m);
+            color: var(--muted);
+            letter-spacing: .1em
+        }
+
+        /* ============ REVEALS ============ */
+        .js [data-reveal] {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .8s ease, transform .8s cubic-bezier(.22, .61, .36, 1);
+            transition-delay: var(--d, 0s)
+        }
+
+        .js [data-reveal].in {
+            opacity: 1;
+            transform: none
+        }
+
+        .js .rv-child {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.22, .61, .36, 1);
+            transition-delay: var(--d, 0s)
+        }
+
+        .js [data-reveal].in .rv-child {
+            opacity: 1;
+            transform: none
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100svh;
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            align-items: center;
+            gap: 30px;
+            padding-top: 130px;
+            padding-bottom: 60px;
+            position: relative
+        }
+
+        .hero-copy .overline {
+            font: 500 11px var(--font-m);
+            letter-spacing: .42em;
+            color: var(--accent);
+            margin-bottom: 26px
+        }
+
+        .hero h1 {
+            font-size: clamp(2.9rem, 8.5vw, 6.1rem);
+            line-height: .98;
+            letter-spacing: -.025em;
+            font-weight: 700
+        }
+
+        .hero h1 .line {
+            display: block;
+            overflow: hidden;
+            padding-bottom: .06em
+        }
+
+        .hero h1 .l2 {
+            color: var(--accent)
+        }
+
+        .ch {
+            display: inline-block;
+            transform: translateY(115%)
+        }
+
+        body.loaded .ch {
+            animation: chIn .9s cubic-bezier(.22, .61, .36, 1) forwards;
+            animation-delay: calc(var(--i)*.035s + .15s)
+        }
+
+        @keyframes chIn {
+            to {
+                transform: translateY(0)
+            }
+        }
+
+        .typed-line {
+            margin-top: 22px;
+            font: 500 14px var(--font-m);
+            letter-spacing: .06em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 1.5em
+        }
+
+        .typed-line .prompt {
+            color: var(--accent)
+        }
+
+        .caret {
+            width: 9px;
+            height: 1.15em;
+            background: var(--accent);
+            animation: caret 1s steps(2, start) infinite
+        }
+
+        @keyframes caret {
+            to {
+                opacity: 0
+            }
+        }
+
+        .hero-meta {
+            margin-top: 26px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            font: 400 12.5px var(--font-m);
+            color: var(--muted)
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .hero-meta svg {
+            width: 14px;
+            height: 14px;
+            color: var(--faint)
+        }
+
+        .hero-cta {
+            margin-top: 36px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font: 600 13px var(--font-d);
+            letter-spacing: .02em;
+            padding: 15px 26px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: .3s
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--accent-ink)
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-2);
+            transform: translateY(-2px)
+        }
+
+        .btn-ghost {
+            border-color: var(--line-strong);
+            color: var(--text)
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px)
+        }
+
+        .hero-badges {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .hero-badges span {
+            font: 500 11px var(--font-m);
+            letter-spacing: .08em;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 15px
+        }
+
+        .plus-mark {
+            position: absolute;
+            font: 400 15px var(--font-m);
+            color: var(--accent);
+            opacity: .55;
+            pointer-events: none
+        }
+
+        .hero .pm1 {
+            top: 110px;
+            left: -6px
+        }
+
+        .hero .pm2 {
+            bottom: 70px;
+            right: 8%
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 26px;
+            left: clamp(20px, 4vw, 44px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font: 500 10px var(--font-m);
+            letter-spacing: .3em;
+            color: var(--faint)
+        }
+
+        .scroll-cue svg {
+            width: 14px;
+            height: 14px;
+            color: var(--accent);
+            animation: bob 1.8s ease-in-out infinite
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(-3px)
+            }
+
+            50% {
+                transform: translateY(3px)
+            }
+        }
+
+        /* orbit */
+        .orbit {
+            position: relative;
+            width: min(44vw, 520px);
+            aspect-ratio: 1;
+            margin-left: auto
+        }
+
+        .ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid var(--line)
+        }
+
+        .r1 {
+            width: 46%;
+            height: 46%
+        }
+
+        .r2 {
+            width: 67%;
+            height: 67%
+        }
+
+        .r3 {
+            width: 88%;
+            height: 88%
+        }
+
+        .r2 {
+            border-style: dashed;
+            border-color: var(--line-strong);
+            animation: spin 90s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg)
+            }
+        }
+
+        .orbit-lines {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            pointer-events: none
+        }
+
+        .orbit-lines line {
+            stroke: var(--line-strong);
+            stroke-width: 1;
+            opacity: .5
+        }
+
+        .orbit-core {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 98px;
+            height: 98px;
+            border-radius: 50%;
+            background: var(--panel);
+            border: 1px solid var(--line-strong);
+            display: grid;
+            place-content: center;
+            text-align: center;
+            z-index: 2
+        }
+
+        .orbit-core::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
+            animation: corePulse 3.2s ease-out infinite
+        }
+
+        @keyframes corePulse {
+            0% {
+                transform: scale(1);
+                opacity: .5
+            }
+
+            70%,
+            100% {
+                transform: scale(1.6);
+                opacity: 0
+            }
+        }
+
+        .orbit-core b {
+            font: 700 27px var(--font-d);
+            letter-spacing: .02em
+        }
+
+        .orbit-core span {
+            font: 500 7.5px var(--font-m);
+            letter-spacing: .34em;
+            color: var(--faint);
+            margin-top: 3px
+        }
+
+        .sat {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            z-index: 3
+        }
+
+        .sat-dot {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--panel);
+            border: 1px solid var(--line-strong);
+            display: grid;
+            place-items: center;
+            font: 600 12px var(--font-m);
+            color: var(--accent-2);
+            transition: border-color .3s, background .3s;
+            box-shadow: 0 0 0 7px rgba(170, 176, 247, .05)
+        }
+
+        .sat:hover .sat-dot,
+        .sat:focus-visible .sat-dot {
+            border-color: var(--accent);
+            background: var(--bg-2)
+        }
+
+        .sat-tip {
+            position: absolute;
+            left: 0;
+            top: 36px;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font: 500 10px var(--font-m);
+            letter-spacing: .16em;
+            color: var(--muted);
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            padding: 5px 11px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: .25s
+        }
+
+        .sat:hover .sat-tip,
+        .sat:focus-visible .sat-tip {
+            opacity: 1
+        }
+
+        .orbit-cap {
+            position: absolute;
+            bottom: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            font: 500 9.5px var(--font-m);
+            letter-spacing: .3em;
+            color: var(--faint);
+            white-space: nowrap
+        }
+
+        /* ============ MARQUEE (rolling tech logos) ============ */
+        .marquee {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
+            padding: 14px 0;
+            position: relative;
+            z-index: 2;
+            background: var(--bg)
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            animation: marquee 36s linear infinite
+        }
+
+        .marquee:hover .marquee-track {
+            animation-play-state: paused
+        }
+
+        .mq-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px
+        }
+
+        .mq-item img {
+            width: 17px;
+            height: 17px;
+            object-fit: contain;
+            flex: none
+        }
+
+        .mq-name {
+            font: 500 12px var(--font-m);
+            letter-spacing: .26em;
+            color: var(--muted);
+            white-space: nowrap
+        }
+
+        .mq-item::after {
+            content: '◆';
+            font-size: 8px;
+            color: var(--accent);
+            margin: 0 26px
+        }
+
+        @keyframes marquee {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* ============ SECTION HEAD ============ */
+        .sec-head {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 60px
+        }
+
+        .sec-head .plus {
+            font: 400 15px var(--font-m);
+            color: var(--accent)
+        }
+
+        .sec-head h2 {
+            font: 600 13px var(--font-m);
+            letter-spacing: .42em;
+            color: var(--text)
+        }
+
+        .sec-head .rule {
+            flex: 1;
+            height: 1px;
+            background: var(--line)
+        }
+
+        /* ============ ABOUT ============ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 70px
+        }
+
+        .statement {
+            font-size: clamp(1.35rem, 2.2vw, 1.72rem);
+            line-height: 1.55;
+            font-weight: 500;
+            letter-spacing: -.01em
+        }
+
+        .statement .hl {
+            font-style: normal;
+            color: var(--accent-2)
+        }
+
+        .about-sub {
+            margin-top: 26px;
+            color: var(--muted);
+            font-size: 15.5px;
+            line-height: 1.75;
+            max-width: 56ch
+        }
+
+        .facts {
+            border-top: 1px solid var(--line)
+        }
+
+        .fact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 15px 2px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .fact dt {
+            font: 500 10.5px var(--font-m);
+            letter-spacing: .22em;
+            color: var(--faint)
+        }
+
+        .fact dd {
+            font: 500 13px var(--font-d);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: right
+        }
+
+        .fact dd a:hover {
+            color: var(--accent-2)
+        }
+
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--line-strong);
+            background: none;
+            color: var(--muted);
+            display: grid;
+            place-items: center;
+            transition: .25s
+        }
+
+        .icon-btn:hover {
+            color: var(--accent-2);
+            border-color: var(--accent)
+        }
+
+        .icon-btn svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .langs {
+            margin-top: 30px
+        }
+
+        .langs h3 {
+            font: 500 10.5px var(--font-m);
+            letter-spacing: .32em;
+            color: var(--faint);
+            margin-bottom: 16px
+        }
+
+        .lang {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 9px 0
+        }
+
+        .lang b {
+            font: 600 13.5px var(--font-d);
+            width: 96px
+        }
+
+        .lang .dots {
+            display: flex;
+            gap: 7px
+        }
+
+        .lang .ldot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            transform: scale(0);
+            transition: transform .45s cubic-bezier(.34, 1.56, .64, 1);
+            transition-delay: calc(var(--i)*.08s)
+        }
+
+        [data-reveal].in .ldot {
+            transform: scale(1)
+        }
+
+        .lang i {
+            margin-left: auto;
+            font: 500 10.5px var(--font-m);
+            color: var(--muted);
+            font-style: normal;
+            letter-spacing: .08em
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin-top: 80px;
+            border-top: 1px solid var(--line)
+        }
+
+        .stat {
+            padding: 30px 26px 6px 0;
+            border-left: 1px solid var(--line);
+            padding-left: 26px
+        }
+
+        .stat:first-child {
+            border-left: 0;
+            padding-left: 0
+        }
+
+        .stat-n {
+            font: 700 42px/1 var(--font-d);
+            letter-spacing: -.02em;
+            color: var(--text)
+        }
+
+        .stat-n i {
+            font-style: normal;
+            color: var(--accent);
+            font-size: 30px;
+            margin-left: 2px
+        }
+
+        .stat-l {
+            display: block;
+            margin-top: 10px;
+            font: 400 11.5px/1.6 var(--font-m);
+            color: var(--faint);
+            letter-spacing: .04em
+        }
+
+        /* ============ PROJECTS ============ */
+        .work-intro {
+            max-width: 62ch;
+            color: var(--muted);
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin: -28px 0 20px
+        }
+
+        .project {
+            display: grid;
+            grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+            gap: 64px;
+            align-items: center;
+            margin-bottom: 150px
+        }
+
+        .project .stage {
+            order: 1
+        }
+
+        .project .meta {
+            order: 2
+        }
+
+        .project.flip .stage {
+            order: 2
+        }
+
+        .project.flip .meta {
+            order: 1
+        }
+
+        .tilt {
+            will-change: transform
+        }
+
+        .browser {
+            background: #0d1233;
+            border: 1px solid var(--line-strong);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 34px 80px -24px rgba(0, 0, 0, .65)
+        }
+
+        .chrome {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 44px;
+            padding: 0 14px;
+            background: #121a3f;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .tl-dots {
+            display: flex;
+            gap: 6px
+        }
+
+        .tl-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .tl-dots span:nth-child(1) {
+            background: rgba(255, 95, 87, .85)
+        }
+
+        .tl-dots span:nth-child(2) {
+            background: rgba(254, 188, 46, .85)
+        }
+
+        .tl-dots span:nth-child(3) {
+            background: rgba(40, 200, 64, .85)
+        }
+
+        .url-pill {
+            flex: 1;
+            min-width: 0;
+            max-width: 270px;
+            margin: 0 auto;
+            font: 500 10.5px var(--font-m);
+            color: var(--faint);
+            background: rgba(255, 255, 255, .045);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 5px 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .chrome-right {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .rec {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font: 500 10.5px var(--font-m);
+            letter-spacing: .1em;
+            color: var(--muted)
+        }
+
+        .rec-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--rec);
+            animation: blink 1.3s steps(2, start) infinite
+        }
+
+        @keyframes blink {
+            to {
+                opacity: .15
+            }
+        }
+
+        .stage.paused .rec-dot {
+            animation: none;
+            opacity: .35
+        }
+
+        .t-time {
+            color: var(--faint)
+        }
+
+        .t-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            border: 1px solid var(--line);
+            background: none;
+            color: var(--muted);
+            display: grid;
+            place-items: center;
+            transition: .25s
+        }
+
+        .t-toggle:hover {
+            border-color: var(--accent);
+            color: var(--text)
+        }
+
+        .t-toggle svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .t-toggle .i-play {
+            display: none
+        }
+
+        .stage.paused .t-toggle .i-pause {
+            display: none
+        }
+
+        .stage.paused .t-toggle .i-play {
+            display: block
+        }
+
+        .clip-viewport {
+            position: relative;
+            height: 430px;
+            overflow: hidden
+        }
+
+        .clip-content {
+            will-change: transform
+        }
+
+        .clip-track {
+            position: absolute;
+            right: 8px;
+            top: 10px;
+            bottom: 10px;
+            width: 4px;
+            border-radius: 99px;
+            background: rgba(10, 15, 40, .08);
+            z-index: 4
+        }
+
+        .clip-thumb {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            border-radius: 99px;
+            background: rgba(10, 15, 40, .28)
+        }
+
+        .stage-cap {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 15px;
+            font: 500 10px var(--font-m);
+            letter-spacing: .18em;
+            color: var(--faint)
+        }
+
+        .stage.is-real .clip-track,
+        .stage.is-real .rec,
+        .stage.is-real .t-toggle {
+            display: none
+        }
+
+        .real-media {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        /* --- mock shared --- */
+        .mock {
+            font-family: var(--font-d)
+        }
+
+        .m-kicker {
+            font: 600 9px var(--font-m);
+            letter-spacing: .3em;
+            margin-bottom: 12px;
+            color: var(--mk-accent)
+        }
+
+        .m-btn {
+            display: inline-block;
+            background: var(--mk-accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 9px 16px;
+            border-radius: 999px
+        }
+
+        .m-btn.ghost {
+            background: transparent;
+            color: var(--mk-ink);
+            box-shadow: inset 0 0 0 1.5px var(--mk-line)
+        }
+
+        /* --- mock 1: dental --- */
+        .mock-dental {
+            background: #f7fafb;
+            color: #123047;
+            --mk-accent: #0f8b8d;
+            --mk-ink: #123047;
+            --mk-mut: #5b7285;
+            --mk-line: rgba(18, 48, 71, .12)
+        }
+
+        .md-top {
+            display: flex;
+            justify-content: space-between;
+            background: #e8f3f3;
+            color: #0c7476;
+            padding: 8px 26px;
+            font: 500 9.5px var(--font-m);
+            letter-spacing: .12em
+        }
+
+        .md-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 26px;
+            border-bottom: 1px solid var(--mk-line)
+        }
+
+        .md-logo {
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .md-logo svg {
+            width: 22px;
+            height: 22px;
+            color: var(--mk-accent)
+        }
+
+        .md-logo b {
+            font-size: 13.5px;
+            letter-spacing: .1em
+        }
+
+        .md-logo small {
+            display: block;
+            font: 500 7px var(--font-m);
+            letter-spacing: .34em;
+            color: var(--mk-accent)
+        }
+
+        .md-links {
+            display: flex;
+            gap: 16px;
+            font-size: 11px;
+            color: var(--mk-mut)
+        }
+
+        .md-hero {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 20px;
+            padding: 34px 26px 28px;
+            align-items: center
+        }
+
+        .md-hero h3 {
+            font-size: 24px;
+            line-height: 1.15;
+            letter-spacing: -.01em;
+            margin-bottom: 10px;
+            color: var(--mk-ink)
+        }
+
+        .md-hero p {
+            font-size: 11.5px;
+            line-height: 1.6;
+            color: var(--mk-mut);
+            max-width: 36ch;
+            margin-bottom: 16px
+        }
+
+        .md-cta {
+            display: flex;
+            gap: 10px
+        }
+
+        .md-art {
+            position: relative;
+            height: 168px
+        }
+
+        .md-art .c {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 150px;
+            height: 150px;
+            border: 1px solid var(--mk-line);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: var(--mk-accent)
+        }
+
+        .md-art .c svg {
+            width: 56px;
+            height: 56px
+        }
+
+        .md-art .orb {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 150px;
+            height: 150px;
+            animation: spinPlain 12s linear infinite
+        }
+
+        .md-art .orb i {
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--mk-accent)
+        }
+
+        @keyframes spinPlain {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .md-stats {
+            display: flex;
+            justify-content: center;
+            gap: 26px;
+            padding: 13px;
+            background: #fff;
+            border-top: 1px solid var(--mk-line);
+            border-bottom: 1px solid var(--mk-line);
+            font: 600 9.5px var(--font-m);
+            letter-spacing: .14em;
+            color: var(--mk-ink)
+        }
+
+        .md-sec {
+            padding: 26px
+        }
+
+        .md-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 4px;
+            border-bottom: 1px solid var(--mk-line)
+        }
+
+        .md-row b {
+            font: 600 10px var(--font-m);
+            color: var(--mk-accent);
+            width: 22px
+        }
+
+        .md-row .n {
+            font-weight: 600;
+            font-size: 13px;
+            flex: 0 0 132px;
+            color: var(--mk-ink)
+        }
+
+        .md-row p {
+            font-size: 10.5px;
+            color: var(--mk-mut);
+            flex: 1;
+            line-height: 1.45
+        }
+
+        .md-row svg {
+            width: 15px;
+            height: 15px;
+            color: var(--mk-accent);
+            flex: none
+        }
+
+        .md-quote {
+            margin: 4px 26px 28px;
+            padding: 20px 24px;
+            background: #ecf4f4;
+            border-left: 3px solid var(--mk-accent)
+        }
+
+        .md-quote p {
+            font-size: 13px;
+            font-style: italic;
+            line-height: 1.55;
+            color: var(--mk-ink)
+        }
+
+        .md-quote cite {
+            display: block;
+            margin-top: 10px;
+            font: 500 9px var(--font-m);
+            letter-spacing: .16em;
+            color: var(--mk-mut);
+            font-style: normal
+        }
+
+        .md-foot {
+            background: #0e2a3f;
+            color: #c9dbe4;
+            padding: 26px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center
+        }
+
+        .md-foot b {
+            display: block;
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 4px
+        }
+
+        .md-foot small {
+            font: 400 10px var(--font-m);
+            letter-spacing: .06em;
+            color: #8fb0be
+        }
+
+        /* --- mock 2: freelancer --- */
+        .mock-freela {
+            background: #faf6ef;
+            color: #241d16;
+            --mk-accent: #d95b32;
+            --mk-ink: #241d16;
+            --mk-mut: #7c7062;
+            --mk-line: rgba(36, 29, 22, .13)
+        }
+
+        .mf-top {
+            background: #241d16;
+            color: #e8ddcf;
+            text-align: center;
+            padding: 8px;
+            font: 500 9px var(--font-m);
+            letter-spacing: .2em
+        }
+
+        .mf-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 26px;
+            border-bottom: 1px solid var(--mk-line)
+        }
+
+        .mf-logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 700;
+            font-size: 14px
+        }
+
+        .mf-logo .z {
+            width: 24px;
+            height: 24px;
+            border-radius: 7px;
+            background: var(--mk-accent);
+            display: grid;
+            place-items: center;
+            color: #faf6ef
+        }
+
+        .mf-logo svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .mf-links {
+            display: flex;
+            gap: 16px;
+            font-size: 11px;
+            color: var(--mk-mut)
+        }
+
+        .mf-hero {
+            text-align: center;
+            padding: 32px 26px 30px
+        }
+
+        .mf-hero h3 {
+            font-size: 24px;
+            letter-spacing: -.01em;
+            margin-bottom: 18px
+        }
+
+        .mf-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 390px;
+            margin: 0 auto 16px;
+            background: #fff;
+            border: 1px solid var(--mk-line);
+            border-radius: 999px;
+            padding: 6px 6px 6px 16px
+        }
+
+        .mf-search svg {
+            width: 14px;
+            height: 14px;
+            color: var(--mk-mut);
+            flex: none
+        }
+
+        .mf-search span {
+            flex: 1;
+            text-align: left;
+            font: 400 10.5px var(--font-m);
+            color: var(--mk-mut)
+        }
+
+        .mf-tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .mf-tags span {
+            font: 500 9.5px var(--font-m);
+            border: 1px solid var(--mk-line);
+            border-radius: 999px;
+            padding: 5px 12px;
+            color: var(--mk-mut)
+        }
+
+        .mf-sec {
+            padding: 10px 26px 24px
+        }
+
+        .mf-talent {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--mk-line)
+        }
+
+        .mf-ava {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font: 600 11px var(--font-m);
+            color: #faf6ef;
+            flex: none
+        }
+
+        .mf-tinfo {
+            flex: 1;
+            min-width: 0
+        }
+
+        .mf-tinfo b {
+            display: block;
+            font-size: 12.5px
+        }
+
+        .mf-tinfo small {
+            font-size: 10.5px;
+            color: var(--mk-mut)
+        }
+
+        .mf-stars {
+            display: flex;
+            align-items: center;
+            gap: 3px
+        }
+
+        .mf-stars svg {
+            width: 9px;
+            height: 9px;
+            color: #e8a33d
+        }
+
+        .mf-stars i {
+            font: 500 9px var(--font-m);
+            color: var(--mk-mut);
+            font-style: normal;
+            margin-left: 3px
+        }
+
+        .mf-rate {
+            font: 600 12px var(--font-m)
+        }
+
+        .mf-hire {
+            font-size: 10px;
+            font-weight: 600;
+            border: 1.5px solid var(--mk-line);
+            border-radius: 999px;
+            padding: 6px 13px;
+            color: var(--mk-ink)
+        }
+
+        .mf-steps li {
+            display: flex;
+            gap: 14px;
+            padding: 11px 0;
+            list-style: none
+        }
+
+        .mf-steps .num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 1.5px solid var(--mk-accent);
+            color: var(--mk-accent);
+            display: grid;
+            place-items: center;
+            font: 600 11px var(--font-m);
+            flex: none
+        }
+
+        .mf-steps b {
+            font-size: 12.5px;
+            display: block
+        }
+
+        .mf-steps p {
+            font-size: 10.5px;
+            color: var(--mk-mut);
+            line-height: 1.45
+        }
+
+        .mf-band {
+            background: #241d16;
+            color: #f2ead9;
+            margin: 8px 26px 26px;
+            border-radius: 14px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px
+        }
+
+        .mf-band b {
+            font-size: 14.5px;
+            display: block
+        }
+
+        .mf-band small {
+            font-size: 10px;
+            color: #b7a893
+        }
+
+        .mf-foot {
+            text-align: center;
+            font: 400 9px var(--font-m);
+            letter-spacing: .16em;
+            color: var(--mk-mut);
+            padding: 6px 0 22px
+        }
+
+        /* --- phone (project 3) --- */
+        .phone-stage {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .phone-halo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(120%, 480px);
+            aspect-ratio: 1;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            pointer-events: none
+        }
+
+        .phone-halo::after {
+            content: '';
+            position: absolute;
+            inset: 9%;
+            border: 1px dashed var(--line-strong);
+            border-radius: 50%;
+            animation: spinPlain 70s linear infinite
+        }
+
+        .device-bar {
+            width: 292px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #0d1233;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 2
+        }
+
+        .device-bar .pkg {
+            font: 500 9.5px var(--font-m);
+            color: var(--faint);
+            letter-spacing: .1em
+        }
+
+        .phone {
+            width: 292px;
+            height: 600px;
+            background: #0b0f26;
+            border: 1px solid #2a3160;
+            border-radius: 46px;
+            padding: 10px;
+            box-shadow: 0 44px 90px -30px rgba(0, 0, 0, .7);
+            position: relative;
+            z-index: 2
+        }
+
+        .phone-screen {
+            position: relative;
+            height: 100%;
+            border-radius: 36px;
+            overflow: hidden;
+            background: #f5eee1;
+            color: #31241a;
+            --ap-accent: #a5622d;
+            --ap-ink: #31241a;
+            --ap-mut: #8d7c68;
+            --ap-line: rgba(49, 36, 26, .13)
+        }
+
+        .island {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92px;
+            height: 24px;
+            background: #0b0f26;
+            border-radius: 999px;
+            z-index: 8
+        }
+
+        .p-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 22px 4px;
+            font: 600 10px var(--font-m)
+        }
+
+        .p-status .picons {
+            display: flex;
+            gap: 5px;
+            align-items: center
+        }
+
+        .app-screen {
+            position: absolute;
+            inset: 0;
+            padding: 8px 18px 68px;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: .5s cubic-bezier(.22, .61, .36, 1);
+            pointer-events: none
+        }
+
+        .app-screen.active {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto
+        }
+
+        .p-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0 10px
+        }
+
+        .p-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700
+        }
+
+        .p-brand .ic {
+            width: 26px;
+            height: 26px;
+            border-radius: 9px;
+            background: var(--ap-accent);
+            display: grid;
+            place-items: center;
+            color: #f5eee1
+        }
+
+        .p-brand svg {
+            width: 14px;
+            height: 14px
+        }
+
+        .p-bell {
+            background: none;
+            border: 0;
+            color: var(--ap-mut)
+        }
+
+        .p-bell svg {
+            width: 17px;
+            height: 17px
+        }
+
+        .p-kicker {
+            font: 600 8.5px var(--font-m);
+            letter-spacing: .3em;
+            color: var(--ap-accent);
+            margin-bottom: 7px
+        }
+
+        .p-h {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -.01em;
+            line-height: 1.2
+        }
+
+        .p-sub {
+            font-size: 10.5px;
+            color: var(--ap-mut);
+            margin-top: 5px;
+            line-height: 1.5
+        }
+
+        .p-card {
+            background: var(--ap-ink);
+            color: #f5eee1;
+            border-radius: 18px;
+            padding: 16px;
+            margin-top: 14px
+        }
+
+        .p-card .tag {
+            font: 600 8px var(--font-m);
+            letter-spacing: .28em;
+            color: #d8b48c
+        }
+
+        .p-card .nm {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 8px
+        }
+
+        .p-card .nt {
+            font-size: 10px;
+            color: #c9b8a1;
+            margin-top: 4px;
+            line-height: 1.5
+        }
+
+        .p-card .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px
+        }
+
+        .p-chip {
+            font: 500 9px var(--font-m);
+            border: 1px solid rgba(245, 238, 225, .3);
+            border-radius: 999px;
+            padding: 4px 9px;
+            color: #e4d7c3
+        }
+
+        .p-go {
+            background: #d8b48c;
+            color: var(--ap-ink);
+            border: 0;
+            border-radius: 999px;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 8px 14px
+        }
+
+        .p-stats {
+            display: flex;
+            margin-top: 16px;
+            border-top: 1px solid var(--ap-line);
+            border-bottom: 1px solid var(--ap-line)
+        }
+
+        .p-stats div {
+            flex: 1;
+            padding: 11px 4px;
+            text-align: center
+        }
+
+        .p-stats div+div {
+            border-left: 1px solid var(--ap-line)
+        }
+
+        .p-stats b {
+            font-size: 17px;
+            display: block
+        }
+
+        .p-stats small {
+            font: 500 8px var(--font-m);
+            letter-spacing: .18em;
+            color: var(--ap-mut)
+        }
+
+        .p-list {
+            margin-top: 14px
+        }
+
+        .p-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--ap-line)
+        }
+
+        .p-swatch {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #f5eee1;
+            flex: none
+        }
+
+        .p-swatch svg {
+            width: 14px;
+            height: 14px
+        }
+
+        .p-item .in {
+            flex: 1;
+            min-width: 0
+        }
+
+        .p-item b {
+            display: block;
+            font-size: 12px
+        }
+
+        .p-item small {
+            font-size: 9.5px;
+            color: var(--ap-mut)
+        }
+
+        .p-item .pr {
+            font: 600 11px var(--font-m)
+        }
+
+        .p-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            border: 1px solid var(--ap-line);
+            border-radius: 12px;
+            padding: 9px 12px;
+            font: 400 10px var(--font-m);
+            color: var(--ap-mut);
+            margin: 8px 0 4px
+        }
+
+        .p-search svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .brew-wrap {
+            position: relative;
+            width: 196px;
+            margin: 14px auto 6px
+        }
+
+        .brew-wrap svg {
+            width: 196px;
+            height: 196px
+        }
+
+        .brew-track {
+            fill: none;
+            stroke: rgba(49, 36, 26, .12);
+            stroke-width: 10
+        }
+
+        .brew-prog {
+            fill: none;
+            stroke: var(--ap-accent);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: center
+        }
+
+        .brew-center {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-content: center;
+            text-align: center
+        }
+
+        .brew-center b {
+            font: 600 27px var(--font-m);
+            letter-spacing: .02em
+        }
+
+        .brew-center small {
+            font: 500 8.5px var(--font-m);
+            letter-spacing: .24em;
+            color: var(--ap-mut);
+            margin-top: 3px
+        }
+
+        .brew-chips {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 10px
+        }
+
+        .brew-chips span {
+            font: 500 8.5px var(--font-m);
+            border: 1px solid var(--ap-line);
+            border-radius: 999px;
+            padding: 4px 10px;
+            color: var(--ap-mut)
+        }
+
+        .brew-steps {
+            margin-top: 14px
+        }
+
+        .brew-steps li {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            padding: 7px 0;
+            font-size: 11px;
+            color: var(--ap-mut);
+            list-style: none;
+            transition: .3s
+        }
+
+        .brew-steps li .t {
+            font: 500 9.5px var(--font-m);
+            width: 32px;
+            flex: none
+        }
+
+        .brew-steps li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: 1.5px solid var(--ap-line);
+            flex: none;
+            transform: translateY(-1px)
+        }
+
+        .brew-steps li.on {
+            color: var(--ap-ink);
+            font-weight: 600
+        }
+
+        .brew-steps li.on::before {
+            background: var(--ap-accent);
+            border-color: var(--ap-accent)
+        }
+
+        .app-nav {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 60px;
+            background: #fbf6ec;
+            border-top: 1px solid var(--ap-line);
+            display: flex;
+            z-index: 5
+        }
+
+        .app-nav button {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            align-content: center;
+            gap: 3px;
+            background: none;
+            border: 0;
+            color: var(--ap-mut);
+            font: 500 8px var(--font-m);
+            letter-spacing: .1em
+        }
+
+        .app-nav button svg {
+            width: 17px;
+            height: 17px
+        }
+
+        .app-nav button.active {
+            color: var(--ap-accent)
+        }
+
+        /* --- project meta --- */
+        .p-index {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px
+        }
+
+        .p-index .num {
+            font: 700 76px/1 var(--font-d);
+            color: transparent;
+            -webkit-text-stroke: 1px var(--line-strong);
+            letter-spacing: -.02em
+        }
+
+        .kind {
+            font: 500 10.5px var(--font-m);
+            letter-spacing: .2em;
+            color: var(--accent);
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            padding: 7px 14px
+        }
+
+        .meta h3 {
+            font-size: clamp(24px, 2.6vw, 31px);
+            letter-spacing: -.015em;
+            margin-bottom: 14px
+        }
+
+        .repo-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px
+        }
+
+        .repo-line code {
+            font: 500 11.5px var(--font-m);
+            color: var(--faint);
+            word-break: break-all
+        }
+
+        .meta>p {
+            color: var(--muted);
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin-bottom: 22px
+        }
+
+        .hl {
+            list-style: none;
+            margin-bottom: 24px
+        }
+
+        .hl li {
+            position: relative;
+            padding: 5px 0 5px 22px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: var(--text)
+        }
+
+        .hl li::before {
+            content: '◆';
+            position: absolute;
+            left: 2px;
+            top: 10px;
+            font-size: 8px;
+            color: var(--accent)
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px
+        }
+
+        .tags span {
+            font: 500 11px var(--font-m);
+            letter-spacing: .06em;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 6px 13px;
+            transition: .25s
+        }
+
+        .tags span:hover {
+            border-color: var(--accent);
+            color: var(--accent-2);
+            background: rgba(170, 176, 247, .07)
+        }
+
+        .meta-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .xref {
+            margin-top: 24px;
+            font: 400 10.5px/1.7 var(--font-m);
+            color: var(--faint);
+            letter-spacing: .03em;
+            border-left: 2px solid var(--line-strong);
+            padding-left: 12px
+        }
+
+        /* ============ STACK ============ */
+        .srow {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 24px;
+            align-items: start;
+            padding: 26px 6px;
+            border-bottom: 1px solid var(--line);
+            transition: background .3s
+        }
+
+        .srow:hover {
+            background: rgba(170, 176, 247, .035)
+        }
+
+        .s-label {
+            font: 600 12px var(--font-m);
+            letter-spacing: .3em;
+            color: var(--muted);
+            padding-top: 8px;
+            transition: .3s
+        }
+
+        .srow:hover .s-label {
+            color: var(--accent-2);
+            transform: translateX(6px)
+        }
+
+        .s-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px
+        }
+
+        .s-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font: 500 11.5px var(--font-d);
+            letter-spacing: .02em;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 7px 14px;
+            transition: .25s;
+            background: var(--bg)
+        }
+
+        .s-tag img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+            flex: none
+        }
+
+        .s-tag .t-ic {
+            width: 13px;
+            height: 13px;
+            color: var(--faint);
+            flex: none;
+            transition: .25s
+        }
+
+        .s-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent-2);
+            background: rgba(170, 176, 247, .07)
+        }
+
+        .s-tag:hover .t-ic {
+            color: var(--accent-2)
+        }
+
+        .stack-note {
+            margin-top: 34px;
+            font: 400 11px var(--font-m);
+            color: var(--faint);
+            letter-spacing: .06em
+        }
+
+        /* ============ TIMELINE ============ */
+        .tl {
+            list-style: none;
+            border-left: 1px solid var(--line);
+            margin-left: 6px;
+            padding-left: 34px
+        }
+
+        .tl-item {
+            position: relative;
+            padding-bottom: 56px
+        }
+
+        .tl-item:last-child {
+            padding-bottom: 6px
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: -39px;
+            top: 6px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 5px rgba(170, 176, 247, .12)
+        }
+
+        .tl-period {
+            font: 600 10.5px var(--font-m);
+            letter-spacing: .26em;
+            color: var(--accent);
+            margin-bottom: 10px
+        }
+
+        .tl-item h3 {
+            font-size: 21px;
+            letter-spacing: -.01em;
+            margin-bottom: 6px
+        }
+
+        .tl-org {
+            font-size: 13.5px;
+            color: var(--muted);
+            margin-bottom: 16px
+        }
+
+        .tl-item .hl li {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        /* ============ CONTACT ============ */
+        .contact {
+            text-align: center
+        }
+
+        .contact .sec-head {
+            justify-content: center
+        }
+
+        .contact .sec-head .rule {
+            display: none
+        }
+
+        .contact h2.big {
+            font-size: clamp(2.1rem, 5vw, 3.8rem);
+            letter-spacing: -.025em;
+            line-height: 1.12;
+            max-width: 24ch;
+            margin: 0 auto 26px
+        }
+
+        .contact h2.big em {
+            font-style: normal;
+            color: var(--accent)
+        }
+
+        .contact .lead {
+            color: var(--muted);
+            font-size: 15.5px;
+            line-height: 1.7;
+            max-width: 56ch;
+            margin: 0 auto 42px
+        }
+
+        .mail-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font: 600 clamp(14px, 2vw, 18px) var(--font-m);
+            color: var(--text);
+            background: none;
+            border: 1px solid var(--line-strong);
+            border-radius: 14px;
+            padding: 20px 30px;
+            transition: .3s;
+            letter-spacing: .02em
+        }
+
+        .mail-btn svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent)
+        }
+
+        .mail-btn .cp {
+            color: var(--faint);
+            width: 15px;
+            height: 15px
+        }
+
+        .mail-btn:hover {
+            background: var(--panel);
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 13px;
+            flex-wrap: wrap;
+            margin-top: 34px
+        }
+
+        .avail {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 44px;
+            font: 500 11.5px var(--font-m);
+            letter-spacing: .1em;
+            color: var(--muted)
+        }
+
+        /* ============ FOOTER / TOAST ============ */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 30px 0;
+            position: relative;
+            z-index: 2
+        }
+
+        .foot-in {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font: 400 11px var(--font-m);
+            color: var(--faint);
+            letter-spacing: .06em
+        }
+
+        .to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font: 500 11px var(--font-m);
+            letter-spacing: .14em
+        }
+
+        .to-top svg {
+            width: 14px;
+            height: 14px;
+            transform: rotate(180deg);
+            color: var(--accent)
+        }
+
+        .to-top:hover {
+            color: var(--accent-2)
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translate(-50%, 16px);
+            background: #12183c;
+            border: 1px solid var(--line-strong);
+            border-radius: 11px;
+            padding: 13px 20px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font: 500 12px var(--font-m);
+            color: var(--text);
+            opacity: 0;
+            visibility: hidden;
+            transition: .35s;
+            z-index: 90;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, .6)
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0)
+        }
+
+        .toast svg {
+            width: 15px;
+            height: 15px;
+            color: var(--good)
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width:1024px) {
+            .project {
+                grid-template-columns: 1fr;
+                gap: 44px;
+                margin-bottom: 110px
+            }
+
+            .project .stage,
+            .project.flip .stage {
+                order: 1
+            }
+
+            .project .meta,
+            .project.flip .meta {
+                order: 2
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 120px;
+                gap: 20px
+            }
+
+            .orbit {
+                width: min(78vw, 380px);
+                margin: 20px auto 0
+            }
+
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 10px
+            }
+
+            .stat:nth-child(3) {
+                border-left: 0;
+                padding-left: 0
+            }
+
+            .srow {
+                grid-template-columns: 1fr;
+                gap: 14px
+            }
+        }
+
+        @media (max-width:820px) {
+
+            .nav-links,
+            .nav-status {
+                display: none
+            }
+
+            .burger {
+                display: block
+            }
+
+            .sec {
+                padding: 84px 0
+            }
+
+            .clip-viewport {
+                height: 380px
+            }
+
+            .phone {
+                transform: scale(.92);
+                transform-origin: top center
+            }
+
+            .device-bar {
+                transform: scale(.92);
+                transform-origin: bottom center
+            }
+
+            .md-hero {
+                grid-template-columns: 1fr
+            }
+
+            .md-art {
+                display: none
+            }
+
+            .scroll-cue {
+                display: none
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important
+            }
+
+            html {
+                scroll-behavior: auto
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SVG icon sprite -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-github" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.67.41.36.78 1.06.78 2.14 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+            </symbol>
+            <symbol id="i-linkedin" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z" />
+            </symbol>
+            <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <polyline points="22,6 12,13 2,6" />
+            </symbol>
+            <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </symbol>
+            <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+            </symbol>
+            <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <polyline points="19,12 12,19 5,12" />
+            </symbol>
+            <symbol id="i-upright" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7,7 17,7 17,17" />
+            </symbol>
+            <symbol id="i-play" viewBox="0 0 24 24">
+                <polygon fill="currentColor" points="8,5 19,12 8,19" />
+            </symbol>
+            <symbol id="i-pause" viewBox="0 0 24 24">
+                <rect fill="currentColor" x="6" y="4" width="4" height="16" rx="1" />
+                <rect fill="currentColor" x="14" y="4" width="4" height="16" rx="1" />
+            </symbol>
+            <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </symbol>
+            <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20,6 9,17 4,12" />
+            </symbol>
+            <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" />
+                <line x1="16.65" y1="16.65" x2="21" y2="21" />
+            </symbol>
+            <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
+            </symbol>
+            <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 10.5 9-7.5 9 7.5" />
+                <path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5" />
+            </symbol>
+            <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="14" y2="18" />
+            </symbol>
+            <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12,7 12,12 15,14" />
+            </symbol>
+            <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </symbol>
+            <symbol id="i-zap" viewBox="0 0 24 24">
+                <polygon fill="currentColor" points="13,2 3,14 12,14 11,22 21,10 12,10" />
+            </symbol>
+            <symbol id="i-star" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8-6.1-3.5-6.1 3.5 1.4-6.8L2.2 9.1l6.9-.8L12 2z" />
+            </symbol>
+            <symbol id="i-tooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M12 3.2c-1.9-.9-3.4-1.2-4.7-.6C5.2 3.6 4 5.7 4 8.3c0 2.9 1 5 1.7 7.9.5 2 .8 4.4 2 4.4 1.1 0 1.3-1.9 1.6-3.7.2-1.5.7-2.7 2.7-2.7s2.5 1.2 2.7 2.7c.3 1.8.5 3.7 1.6 3.7 1.2 0 1.5-2.4 2-4.4.7-2.9 1.7-5 1.7-7.9 0-2.6-1.2-4.7-3.3-5.7-1.3-.6-2.8-.3-4.7.6Z" />
+            </symbol>
+            <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </symbol>
+            <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16,18 22,12 16,6" />
+                <polyline points="8,6 2,12 8,18" />
+            </symbol>
+            <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            </symbol>
+            <symbol id="i-bug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="7" width="8" height="12" rx="4" />
+                <line x1="9" y1="3" x2="10" y2="7" />
+                <line x1="15" y1="3" x2="14" y2="7" />
+                <line x1="4" y1="10" x2="8" y2="11" />
+                <line x1="20" y1="10" x2="16" y2="11" />
+                <line x1="4" y1="17" x2="8" y2="16" />
+                <line x1="20" y1="17" x2="16" y2="16" />
+            </symbol>
+            <symbol id="i-loop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23,4 23,10 17,10" />
+                <polyline points="1,20 1,14 7,14" />
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+            </symbol>
+            <symbol id="i-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" />
+                <polyline points="9,14 11,16 15,12" />
+            </symbol>
+            <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14,2 14,8 20,8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+            </symbol>
+            <symbol id="i-filecode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14,2 14,8 20,8" />
+                <polyline points="10,13 8,15 10,17" />
+                <polyline points="14,13 16,15 14,17" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="progress" id="progress"></div>
+    <div class="cursor-dot" id="cDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cRing" aria-hidden="true"></div>
+
+    <!-- ============ NAV ============ -->
+    <header class="nav" id="nav">
+        <div class="nav-in">
+            <a class="logo" href="#top" aria-label="Voltar ao topo">
+                <!-- YOUR PHOTO: save it as "renan.jpg" next to this file -->
+                <span class="avatar">
+                    <img src="img/renan.jpg" alt="Renan Gomes"
+                        onerror="this.parentElement.classList.add('noimg');this.remove()">
+                </span>
+                <b>renan.gomes</b>
+            </a>
+            <div class="nav-right">
+                <nav class="nav-links" aria-label="Navegação principal">
+                    <a href="#work" data-en="WORK">TRABALHOS</a>
+                    <a href="#about" data-en="ABOUT">SOBRE</a>
+                    <a href="#stack" data-en="STACK">STACK</a>
+                    <a href="#path" data-en="PATH">TRAJETÓRIA</a>
+                    <a href="#contact" data-en="CONTACT">CONTATO</a>
+                </nav>
+                <button class="lang-btn" id="langBtn" aria-label="Mudar para inglês"
+                    data-en-aria="Switch to Portuguese">
+                    <svg>
+                        <use href="#i-globe" />
+                    </svg><span id="langLabel">EN</span>
+                </button>
+                <span class="nav-status"><span class="pulse-dot"></span><span data-en="OPEN TO INTERNSHIPS">DISPONÍVEL
+                        PARA ESTÁGIO</span></span>
+                <button class="burger" id="burger" aria-label="Abrir menu"
+                    data-en-aria="Toggle menu"><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu" id="menu" aria-label="Menu móvel">
+        <a class="m-link" href="#work"><i>01</i><span data-en="Work">Trabalhos</span></a>
+        <a class="m-link" href="#about"><i>02</i><span data-en="About">Sobre</span></a>
+        <a class="m-link" href="#stack"><i>03</i><span data-en="Stack">Stack</span></a>
+        <a class="m-link" href="#path"><i>04</i><span data-en="Path">Trajetória</span></a>
+        <a class="m-link" href="#contact"><i>05</i><span data-en="Contact">Contato</span></a>
+        <p class="menu-foot"><span
+                data-en="rgomespinto19@gmail.com · Garopaba, SC — remote or hybrid">rgomespinto19@gmail.com · Garopaba,
+                SC — remoto ou híbrido</span></p>
+    </div>
+
+    <main>
+        <!-- ============ HERO ============ -->
+        <section class="hero wrap" id="top">
+            <span class="plus-mark pm1" aria-hidden="true">+</span>
+            <span class="plus-mark pm2" aria-hidden="true">+</span>
+
+            <div class="hero-copy">
+                <p class="overline" data-reveal data-en="PORTFOLIO — FULL-STACK DEVELOPER &amp; AI">PORTFÓLIO —
+                    DESENVOLVEDOR FULL-STACK &amp; IA</p>
+                <h1 aria-label="Renan Gomes">
+                    <span class="line" data-split>RENAN</span>
+                    <span class="line l2" data-split>GOMES</span>
+                </h1>
+                <p class="typed-line" data-reveal style="--d:.3s"><span class="prompt">&gt;</span><span
+                        id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+                <div class="hero-meta" data-reveal style="--d:.4s">
+                    <span><svg>
+                            <use href="#i-pin" />
+                        </svg><span data-en="Garopaba, SC — Brazil">Garopaba, SC — Brasil</span></span>
+                    <span><svg>
+                            <use href="#i-mail" />
+                        </svg>rgomespinto19@gmail.com</span>
+                    <span><svg>
+                            <use href="#i-phone" />
+                        </svg>+55 48 99200-1906</span>
+                </div>
+                <div class="hero-cta" data-reveal style="--d:.5s">
+                    <a class="btn btn-primary" href="#work"><span data-en="View projects">Ver projetos</span> <svg>
+                            <use href="#i-down" />
+                        </svg></a>
+                    <a class="btn btn-ghost" href="https://github.com/kanerfx" target="_blank"
+                        rel="noopener">github.com/kanerfx <svg>
+                            <use href="#i-upright" />
+                        </svg></a>
+                </div>
+                <div class="hero-badges" data-reveal style="--d:.6s">
+                    <span data-en="Fluent English — C2">Inglês fluente — C2</span>
+                    <span data-en="IFSC · class of 2027">IFSC · conclusão 2027</span>
+                    <span data-en="Remote or hybrid">Remoto ou híbrido</span>
+                </div>
+            </div>
+
+            <div class="orbit" id="orbit" data-reveal style="--d:.35s">
+                <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+                <svg class="orbit-lines" id="orbitLines">
+                    <line id="ol1" />
+                    <line id="ol2" />
+                    <line id="ol3" />
+                </svg>
+                <div class="orbit-core"><b>RG</b><span>PORTFOLIO</span></div>
+                <a class="sat" href="#p-dental" data-r="0.44" data-sp="0.16" data-ph="-0.6"><span
+                        class="sat-dot">01</span><span class="sat-tip" data-en="Dental Clinic Website">Site —
+                        Consultório Odontológico</span></a>
+                <a class="sat" href="#p-freela" data-r="0.335" data-sp="-0.13" data-ph="1.7"><span
+                        class="sat-dot">02</span><span class="sat-tip" data-en="Freelancer Marketplace">Marketplace de
+                        Freelancers</span></a>
+                <a class="sat" href="#p-cafe" data-r="0.23" data-sp="0.24" data-ph="3.6"><span
+                        class="sat-dot">03</span><span class="sat-tip">Café Lavado · Android</span></a>
+                <p class="orbit-cap" data-en="EACH SATELLITE IS A SHIPPED PROJECT — CLICK ONE">CADA SATÉLITE É UM
+                    PROJETO NO AR! CLIQUE PARA ACESSAR!</p>
+            </div>
+
+            <div class="scroll-cue"><svg>
+                    <use href="#i-down" />
+                </svg><span data-en="SCROLL">ROLE</span></div>
+        </section>
+
+        <!-- ============ MARQUEE (rolling logos) ============ -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track" id="mqTrack">
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                        alt="" decoding="async"><span class="mq-name">JAVASCRIPT</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                        alt="" decoding="async"><span class="mq-name">TYPESCRIPT</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt=""
+                        decoding="async"><span class="mq-name">REACT</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg"
+                        alt="" decoding="async"><span class="mq-name">ANGULAR</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                        alt="" decoding="async"><span class="mq-name">NODE.JS</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                        alt="" decoding="async"><span class="mq-name">PYTHON</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt=""
+                        decoding="async"><span class="mq-name">PHP</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt=""
+                        decoding="async"><span class="mq-name">JAVA</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+                        alt="" decoding="async"><span class="mq-name">C#</span></span>
+                <span class="mq-item"><img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" alt=""
+                        decoding="async"><span class="mq-name">AWS</span></span>
+                <span class="mq-item"><img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt=""
+                        decoding="async"><span class="mq-name">GIT</span></span>
+                <span class="mq-item"><img src="https://cdn.simpleicons.org/github/ffffff" alt="" decoding="async"><span
+                        class="mq-name">GITHUB</span></span>
+                <span class="mq-item"><img src="https://cdn.simpleicons.org/openai/ffffff" alt="" decoding="async"><span
+                        class="mq-name">OPENAI</span></span>
+                <span class="mq-item"><img src="https://cdn.simpleicons.org/claude/D97757" alt="" decoding="async"><span
+                        class="mq-name">CLAUDE</span></span>
+                <span class="mq-item"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt=""
+                        decoding="async"><span class="mq-name">GEMINI</span></span>
+            </div>
+        </div>
+
+        <!-- ============ ABOUT ============ -->
+        <section class="sec" id="about">
+            <div class="wrap">
+                <div class="sec-head" data-reveal><span class="plus">+</span>
+                    <h2 data-en="ABOUT ME">SOBRE MIM</h2><span class="rule"></span>
+                </div>
+                <div class="about-grid">
+                    <div>
+                        <p class="statement" data-reveal>Estudante de <em class="hl">Tecnologia em Sistemas para
+                                Internet</em> no <em class="hl">IFSC</em> (conclusão prevista para 2027) e fundador da
+                            <em class="hl">Concierge – CCG</em>, onde conduzi por dois anos o ciclo completo de uma
+                            plataforma web: requisitos, desenvolvimento, testes, documentação e operação em produção.
+                        </p>
+                        <p class="about-sub" data-reveal style="--d:.15s"
+                            data-en="Solid full-stack base with JavaScript/TypeScript, Node.js, Python and React, REST APIs and agile methods — with software quality and daily AI usage woven into how I work. Detail-oriented, bilingual (English C2), and available for remote or hybrid internships.">
+                            Base sólida em desenvolvimento full-stack com JavaScript/TypeScript, Node.js, Python e
+                            React, APIs REST e metodologias ágeis; com qualidade de software e uso diário de IA no
+                            fluxo de trabalho. Perfil detalhista, bilíngue (inglês C2) e disponível para estágio remoto
+                            ou híbrido.</p>
+                    </div>
+                    <div data-reveal style="--d:.2s">
+                        <dl class="facts">
+                            <div class="fact">
+                                <dt data-en="BASE">BASE</dt>
+                                <dd data-en="Garopaba, SC — Brazil">Garopaba, SC — Brasil</dd>
+                            </div>
+                            <div class="fact">
+                                <dt data-en="AVAILABILITY">DISPONIBILIDADE</dt>
+                                <dd data-en="Internship · remote or hybrid">Estágio · remoto ou híbrido</dd>
+                            </div>
+                            <div class="fact">
+                                <dt data-en="GRADUATION">GRADUAÇÃO</dt>
+                                <dd data-en="IFSC — Internet Systems, 2027">IFSC — Sistemas para Internet, 2027</dd>
+                            </div>
+                            <div class="fact">
+                                <dt data-en="PREVIOUS DEGREE">DIPLOMA ANTERIOR</dt>
+                                <dd data-en="Biotechnology Technician, 2024">Técnico em Biotecnologia, 2024</dd>
+                            </div>
+                            <div class="fact">
+                                <dt data-en="PHONE">TELEFONE</dt>
+                                <dd><a href="tel:+5548992001906">+55 48 99200-1906</a></dd>
+                            </div>
+                            <div class="fact">
+                                <dt data-en="EMAIL">E-MAIL</dt>
+                                <dd>rgomespinto19@gmail.com
+                                    <button class="icon-btn" data-copy="rgomespinto19@gmail.com"
+                                        data-toast="E-mail copiado — até já!" data-toast-en="Email copied — talk soon!"
+                                        aria-label="Copiar e-mail" data-en-aria="Copy email"><svg>
+                                            <use href="#i-copy" />
+                                        </svg></button>
+                                </dd>
+                            </div>
+                        </dl>
+                        <div class="langs">
+                            <h3 data-en="LANGUAGES">IDIOMAS</h3>
+                            <div class="lang"><b data-en="Portuguese">Português</b><span class="dots">
+                                    <span class="ldot" style="--i:0"></span><span class="ldot"
+                                        style="--i:1"></span><span class="ldot" style="--i:2"></span><span class="ldot"
+                                        style="--i:3"></span><span class="ldot" style="--i:4"></span>
+                                </span><i data-en="NATIVE">NATIVO</i></div>
+                            <div class="lang"><b data-en="English">Inglês</b><span class="dots">
+                                    <span class="ldot" style="--i:1"></span><span class="ldot"
+                                        style="--i:2"></span><span class="ldot" style="--i:3"></span><span class="ldot"
+                                        style="--i:4"></span><span class="ldot" style="--i:5"></span>
+                                </span><i data-en="FLUENT — C2">FLUENTE — C2</i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-strip" data-reveal data-stagger data-count-group>
+                    <div class="stat rv-child"><span class="stat-n"><b data-count="2"
+                                data-pad="2">00</b><i>+</i></span><span class="stat-l"
+                            data-en="years running a web platform in production">anos conduzindo uma plataforma web em
+                            produção</span></div>
+                    <div class="stat rv-child"><span class="stat-n"><b data-count="3" data-pad="2">00</b></span><span
+                            class="stat-l" data-en="featured builds on this page — all mine">builds em destaque nesta
+                            página — todos meus</span></div>
+                    <div class="stat rv-child"><span class="stat-n"><b>C2</b></span><span class="stat-l"
+                            data-en="English proficiency — fluent, daily use">inglês fluente — uso diário</span></div>
+                    <div class="stat rv-child"><span class="stat-n"><b data-count="100"
+                                data-pad="0">0</b><i>%</i></span><span class="stat-l"
+                            data-en="remote-ready, hybrid-friendly">pronto para remoto, aberto a híbrido</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section class="sec" id="work">
+            <div class="wrap">
+                <div class="sec-head" data-reveal><span class="plus">+</span>
+                    <h2 data-en="SELECTED WORK">TRABALHOS SELECIONADOS</h2><span class="rule"></span>
+                </div>
+                <p class="work-intro" data-reveal
+                    data-en="Three builds, three surfaces — web, full-stack and Android. Each one walked through the full cycle described in my résumé: requirements, code, tests, docs, ship.">
+                    Três builds: web, full-stack e Android. Cada um percorreu o ciclo completo
+                    descrito no meu currículo, contendo requisitos, código, testes, documentação e entrega.</p>
+
+                <!-- ===== PROJECT 01 · DENTAL CLINIC ===== -->
+                <article class="project" id="p-dental">
+                    <div class="stage" data-clip data-stage="dental">
+                        <div class="tilt" data-tilt>
+                            <div class="browser">
+                                <div class="chrome">
+                                    <span class="tl-dots"><span></span><span></span><span></span></span>
+                                    <span
+                                        class="url-pill">github.com/kanerfx/dr_guilherme_sanchez_consultorio_odontologico</span>
+                                    <span class="chrome-right">
+                                        <span class="rec"><span class="rec-dot"></span>REC <span
+                                                class="t-time">00:00</span></span>
+                                        <button class="t-toggle" aria-label="Reproduzir ou pausar clipe"
+                                            data-en-aria="Play or pause clip"><svg class="i-pause">
+                                                <use href="#i-pause" />
+                                            </svg><svg class="i-play">
+                                                <use href="#i-play" />
+                                            </svg></button>
+                                    </span>
+                                </div>
+                                <div class="clip-viewport mock mock-dental">
+                                    <span class="clip-track"><span class="clip-thumb"></span></span>
+                                    <div class="clip-content" aria-hidden="true">
+                                        <div class="md-top"><span>AGENDE: (48) 3000-0000</span><span>SEG–SÁB ·
+                                                8H–19H</span></div>
+                                        <nav class="md-nav">
+                                            <span class="md-logo"><svg>
+                                                    <use href="#i-tooth" />
+                                                </svg><span><b>SANCHEZ</b><small>ODONTOLOGIA</small></span></span>
+                                            <span
+                                                class="md-links"><span>Início</span><span>Especialidades</span><span>Equipe</span><span>Contato</span></span>
+                                            <span class="m-btn">Agendar avaliação</span>
+                                        </nav>
+                                        <header class="md-hero">
+                                            <div>
+                                                <p class="m-kicker">CLÍNICA ODONTOLÓGICA</p>
+                                                <h3>O cuidado que o seu sorriso merece.</h3>
+                                                <p>Tratamentos modernos, diagnóstico preciso e acolhimento do início ao
+                                                    fim — para toda a família.</p>
+                                                <div class="md-cta"><span class="m-btn">Agendar consulta</span><span
+                                                        class="m-btn ghost">Conhecer a clínica</span></div>
+                                            </div>
+                                            <div class="md-art">
+                                                <span class="c"><span class="orb"><i></i></span><svg>
+                                                        <use href="#i-tooth" />
+                                                    </svg></span>
+                                            </div>
+                                        </header>
+                                        <div class="md-stats"><span>12+ ANOS DE EXPERIÊNCIA</span><span>4.800+
+                                                SORRISOS</span><span>9 ESPECIALIDADES</span></div>
+                                        <section class="md-sec">
+                                            <p class="m-kicker">ESPECIALIDADES</p>
+                                            <div class="md-row"><b>01</b><span class="n">Clínica Geral</span>
+                                                <p>Prevenção, limpeza e tratamento completo para toda a família.</p>
+                                                <svg>
+                                                    <use href="#i-upright" />
+                                                </svg>
+                                            </div>
+                                            <div class="md-row"><b>02</b><span class="n">Ortodontia</span>
+                                                <p>Alinhadores e aparelhos com acompanhamento de perto.</p><svg>
+                                                    <use href="#i-upright" />
+                                                </svg>
+                                            </div>
+                                            <div class="md-row"><b>03</b><span class="n">Implantodontia</span>
+                                                <p>Reabilitação oral com planejamento digital 3D.</p><svg>
+                                                    <use href="#i-upright" />
+                                                </svg>
+                                            </div>
+                                            <div class="md-row"><b>04</b><span class="n">Estética Dental</span>
+                                                <p>Clareamento, lentes e harmonização do sorriso.</p><svg>
+                                                    <use href="#i-upright" />
+                                                </svg>
+                                            </div>
+                                        </section>
+                                        <blockquote class="md-quote">
+                                            <p>"Atendimento humano e sem dor. Virei paciente da casa e não troco por
+                                                nada."</p>
+                                            <cite>MARTA S. — PACIENTE DESDE 2019</cite>
+                                        </blockquote>
+                                        <footer class="md-foot">
+                                            <span><b>Agende sua avaliação</b><small>Rua das Araucárias, 120 — Centro ·
+                                                    (48) 3000-0000</small></span>
+                                            <span class="m-btn">Falar no WhatsApp</span>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR — PAUSE TO FREEZE">TOUR AUTOMÁTICO —
+                                PAUSE PARA CONGELAR</span><span>CLIP 01 / 03</span></div>
+                    </div>
+
+                    <div class="meta">
+                        <div class="p-index" data-reveal><span class="num">01</span><span class="kind"
+                                data-en="WEBSITE · LANDING PAGE">SITE · LANDING PAGE</span></div>
+                        <h3 data-reveal data-en="Dr. Guilherme Sanchez — Dental Clinic">Dr. Guilherme Sanchez,
+                            Consultório Odontológico</h3>
+                        <div class="repo-line" data-reveal>
+                            <code>~/kanerfx/dr_guilherme_sanchez_consultorio_odontologico</code>
+                            <button class="icon-btn"
+                                data-copy="https://github.com/kanerfx/dr_guilherme_sanchez_consultorio_odontologico"
+                                data-toast="Link do repositório copiado!" data-toast-en="Repo link copied!"
+                                aria-label="Copiar link do repositório" data-en-aria="Copy repository link"><svg>
+                                    <use href="#i-copy" />
+                                </svg></button>
+                        </div>
+                        <p data-reveal
+                            data-en="A complete institutional website for a dental practice: responsive layout, clear service presentation and an appointment flow designed to turn visitors into booked consultations — trust built through structure, not noise.">
+                            Site institucional completo para um consultório odontológico: layout responsivo,
+                            apresentação clara dos serviços e um fluxo de agendamento pensado para transformar
+                            visitantes em consultas marcadas.</p>
+                        <ul class="hl" data-reveal>
+                            <li data-en="Mobile-first responsive layout with semantic HTML">Layout responsivo
+                                mobile-first com HTML semântico</li>
+                            <li data-en="Appointment-CTA-driven structure on every section">Estrutura orientada por CTAs
+                                de agendamento em cada seção</li>
+                            <li data-en="Clean, accessible visuals aligned with the clinic's brand">Visual limpo e
+                                acessível, alinhado à marca da clínica</li>
+                        </ul>
+                        <div class="tags" data-reveal><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span
+                                data-en="Responsive Design">Design Responsivo</span></div>
+                        <div class="meta-actions" data-reveal>
+                            <a class="btn btn-primary"
+                                href="https://github.com/kanerfx/dr_guilherme_sanchez_consultorio_odontologico"
+                                target="_blank" rel="noopener"><span data-en="Open on GitHub">Abrir no GitHub</span>
+                                <svg>
+                                    <use href="#i-upright" />
+                                </svg></a>
+                        </div>
+                        <p class="xref" data-reveal
+                            data-en="Résumé, p.01 — client-work discipline: requirements → development → release.">
+                            Currículo, p.01 — disciplina de trabalho com clientes: requisitos → desenvolvimento →
+                            entrega.</p>
+                    </div>
+                </article>
+
+                <!-- ===== PROJECT 02 · FREELANCER MARKETPLACE ===== -->
+                <article class="project flip" id="p-freela">
+                    <div class="stage" data-clip data-stage="freela">
+                        <div class="tilt" data-tilt>
+                            <div class="browser">
+                                <div class="chrome">
+                                    <span class="tl-dots"><span></span><span></span><span></span></span>
+                                    <span class="url-pill">github.com/kanerfx/freelancer_website_pi_1</span>
+                                    <span class="chrome-right">
+                                        <span class="rec"><span class="rec-dot"></span>REC <span
+                                                class="t-time">00:00</span></span>
+                                        <button class="t-toggle" aria-label="Reproduzir ou pausar clipe"
+                                            data-en-aria="Play or pause clip"><svg class="i-pause">
+                                                <use href="#i-pause" />
+                                            </svg><svg class="i-play">
+                                                <use href="#i-play" />
+                                            </svg></button>
+                                    </span>
+                                </div>
+                                <div class="clip-viewport mock mock-freela">
+                                    <span class="clip-track"><span class="clip-thumb"></span></span>
+                                    <div class="clip-content" aria-hidden="true">
+                                        <div class="mf-top">FREELANCERS VERIFICADOS · PAGAMENTO PROTEGIDO</div>
+                                        <nav class="mf-nav">
+                                            <span class="mf-logo"><span class="z"><svg>
+                                                        <use href="#i-zap" />
+                                                    </svg></span>FreelaHub</span>
+                                            <span class="mf-links"><span>Explorar</span><span>Como
+                                                    funciona</span><span>Preços</span><span>Entrar</span></span>
+                                            <span class="m-btn">Começar</span>
+                                        </nav>
+                                        <header class="mf-hero">
+                                            <p class="m-kicker">PROJETO INTEGRADOR — MARKETPLACE</p>
+                                            <h3>O talento certo para cada projeto.</h3>
+                                            <div class="mf-search"><svg>
+                                                    <use href="#i-search" />
+                                                </svg><span>O que você precisa desenvolver hoje?</span><span
+                                                    class="m-btn">Buscar</span></div>
+                                            <div class="mf-tags">
+                                                <span>Sites</span><span>Apps</span><span>UI/UX</span><span>Dados</span><span>Automação</span>
+                                            </div>
+                                        </header>
+                                        <section class="mf-sec">
+                                            <p class="m-kicker">EM DESTAQUE ESTA SEMANA</p>
+                                            <div class="mf-talent"><span class="mf-ava"
+                                                    style="background:#d95b32">AL</span><span class="mf-tinfo"><b>Ana
+                                                        Lima</b><small>Dev Front-end · React &amp;
+                                                        TypeScript</small></span><span class="mf-stars"><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><i>5.0</i></span><span class="mf-rate">R$ 90/h</span><span
+                                                    class="mf-hire">Contratar</span></div>
+                                            <div class="mf-talent"><span class="mf-ava"
+                                                    style="background:#4e8f7c">BP</span><span class="mf-tinfo"><b>Bruno
+                                                        Prado</b><small>Designer UI/UX · Design
+                                                        Systems</small></span><span class="mf-stars"><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><i>4.9</i></span><span class="mf-rate">R$ 70/h</span><span
+                                                    class="mf-hire">Contratar</span></div>
+                                            <div class="mf-talent"><span class="mf-ava"
+                                                    style="background:#c2913f">CM</span><span class="mf-tinfo"><b>Carla
+                                                        Mendes</b><small>Cientista de Dados · Python &amp;
+                                                        SQL</small></span><span class="mf-stars"><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><i>5.0</i></span><span class="mf-rate">R$ 120/h</span><span
+                                                    class="mf-hire">Contratar</span></div>
+                                            <div class="mf-talent"><span class="mf-ava"
+                                                    style="background:#6b5fa8">DF</span><span class="mf-tinfo"><b>Diego
+                                                        Fontes</b><small>Dev Mobile · Android nativo</small></span><span
+                                                    class="mf-stars"><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><svg>
+                                                        <use href="#i-star" />
+                                                    </svg><i>4.8</i></span><span class="mf-rate">R$ 95/h</span><span
+                                                    class="mf-hire">Contratar</span></div>
+                                        </section>
+                                        <section class="mf-sec" style="padding-top:0">
+                                            <p class="m-kicker">COMO FUNCIONA</p>
+                                            <ul class="mf-steps">
+                                                <li><span class="num">1</span><span><b>Publique o projeto</b>
+                                                        <p>Descreva o escopo, prazo e orçamento em minutos.</p>
+                                                    </span></li>
+                                                <li><span class="num">2</span><span><b>Receba propostas em horas</b>
+                                                        <p>Freelancers verificados interessados no seu briefing.</p>
+                                                    </span></li>
+                                                <li><span class="num">3</span><span><b>Contrate com segurança</b>
+                                                        <p>Pagamento retido em garantia até a entrega aprovada.</p>
+                                                    </span></li>
+                                            </ul>
+                                        </section>
+                                        <div class="mf-band"><span><b>Pronto para começar?</b><small>Cadastre-se grátis
+                                                    e publique seu primeiro projeto.</small></span><span
+                                                class="m-btn">Criar conta</span></div>
+                                        <div class="mf-foot">FREELAHUB — PROJETO INTEGRADOR · TURMA 2024</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stage-cap"><span data-en="AUTO-PLAYING TOUR — PAUSE TO FREEZE">TOUR AUTOMÁTICO —
+                                PAUSE PARA CONGELAR</span><span>CLIP 02 / 03</span></div>
+                    </div>
+
+                    <div class="meta">
+                        <div class="p-index" data-reveal><span class="num">02</span><span class="kind"
+                                data-en="FULL-STACK WEB · ACADEMIC PROJECT">WEB FULL-STACK · PROJETO ACADÊMICO</span>
+                        </div>
+                        <h3 data-reveal data-en="FreelaHub — Freelancer Marketplace">FreelaHub: Marketplace de
+                            Freelancers</h3>
+                        <div class="repo-line" data-reveal>
+                            <code>~/kanerfx/freelancer_website_pi_1</code>
+                            <button class="icon-btn" data-copy="https://github.com/kanerfx/freelancer_website_pi_1"
+                                data-toast="Link do repositório copiado!" data-toast-en="Repo link copied!"
+                                aria-label="Copiar link do repositório" data-en-aria="Copy repository link"><svg>
+                                    <use href="#i-copy" />
+                                </svg></button>
+                        </div>
+                        <p data-reveal
+                            data-en="A marketplace connecting clients to freelance talent — browsing, search and a hiring flow with protected payments. Built as a course integrative project, covering the full development cycle from planning to delivery.">
+                            Um marketplace que conecta clientes a talentos freelancer; navegação, busca e um fluxo de
+                            contratação com pagamento protegido. Construído como projeto integrador do curso, cobrindo o
+                            ciclo completo de desenvolvimento, do planejamento à entrega.</p>
+                        <ul class="hl" data-reveal>
+                            <li data-en="Search &amp; filtering flow across talent profiles">Fluxo de busca e filtragem
+                                entre perfis de talento</li>
+                            <li data-en="Hiring journey designed with clear, honest UX">Jornada de contratação desenhada
+                                com UX clara e honesta</li>
+                            <li data-en="Structured data model for users, projects and proposals">Modelo de dados
+                                estruturado para usuários, projetos e propostas</li>
+                        </ul>
+                        <div class="tags" data-reveal>
+                            <span>JavaScript</span><span>Node.js</span><span>Express</span><span>SQL</span><span
+                                data-en="Agile">Ágil</span>
+                        </div>
+                        <div class="meta-actions" data-reveal>
+                            <a class="btn btn-primary" href="https://github.com/kanerfx/freelancer_website_pi_1"
+                                target="_blank" rel="noopener"><span data-en="Open on GitHub">Abrir no GitHub</span>
+                                <svg>
+                                    <use href="#i-upright" />
+                                </svg></a>
+                        </div>
+                        <p class="xref" data-reveal
+                            data-en="Résumé, p.01 — REST APIs &amp; agile methods applied end-to-end.">Currículo, p.01 —
+                            APIs REST e metodologias ágeis aplicadas de ponta a ponta.</p>
+                    </div>
+                </article>
+
+                <!-- ===== PROJECT 03 · CAFÉ LAVADO ANDROID APP ===== -->
+                <article class="project" id="p-cafe">
+                    <div class="stage" data-clip data-stage="cafe">
+                        <div class="phone-stage">
+                            <span class="phone-halo" aria-hidden="true"></span>
+                            <div class="tilt" data-tilt style="display:flex;flex-direction:column;align-items:center">
+                                <div class="device-bar">
+                                    <span class="rec"><span class="rec-dot"></span>REC <span
+                                            class="t-time">00:00</span></span>
+                                    <span class="pkg">cafe-lavado · debug</span>
+                                    <button class="t-toggle" aria-label="Reproduzir ou pausar demo"
+                                        data-en-aria="Play or pause demo"><svg class="i-pause">
+                                            <use href="#i-pause" />
+                                        </svg><svg class="i-play">
+                                            <use href="#i-play" />
+                                        </svg></button>
+                                </div>
+                                <div class="phone" data-phone>
+                                    <span class="island" aria-hidden="true"></span>
+                                    <div class="phone-screen" aria-hidden="true">
+                                        <div class="p-status"><span>9:41</span>
+                                            <span class="picons">
+                                                <svg width="14" height="10" viewBox="0 0 14 10" fill="#31241a">
+                                                    <rect x="0" y="6" width="2.5" height="4" rx="1" />
+                                                    <rect x="3.7" y="4" width="2.5" height="6" rx="1" />
+                                                    <rect x="7.4" y="2" width="2.5" height="8" rx="1" />
+                                                    <rect x="11.1" y="0" width="2.5" height="10" rx="1" />
+                                                </svg>
+                                                <svg width="14" height="10" viewBox="0 0 24 18" fill="none"
+                                                    stroke="#31241a" stroke-width="2.4" stroke-linecap="round">
+                                                    <path d="M2 6a15 15 0 0 1 20 0" />
+                                                    <path d="M6 10.5a9.5 9.5 0 0 1 12 0" />
+                                                    <circle cx="12" cy="15" r="1.6" fill="#31241a" stroke="none" />
+                                                </svg>
+                                                <svg width="20" height="10" viewBox="0 0 22 12" fill="none">
+                                                    <rect x=".8" y=".8" width="17" height="10.4" rx="3" stroke="#31241a"
+                                                        stroke-width="1.2" />
+                                                    <rect x="2.8" y="2.8" width="10" height="6.4" rx="1.6"
+                                                        fill="#31241a" />
+                                                    <rect x="19.4" y="3.6" width="2" height="4.8" rx="1"
+                                                        fill="#31241a" />
+                                                </svg>
+                                            </span>
+                                        </div>
+
+                                        <section class="app-screen active" data-screen="0">
+                                            <div class="p-head">
+                                                <span class="p-brand"><span class="ic"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span>Café Lavado</span>
+                                                <button class="p-bell" tabindex="-1"><svg>
+                                                        <use href="#i-bell" />
+                                                    </svg></button>
+                                            </div>
+                                            <p class="p-kicker">BOM DIA</p>
+                                            <h4 class="p-h">Hora do café perfeito.</h4>
+                                            <p class="p-sub">Baseado no seu último preparo, hoje a recomendação é:</p>
+                                            <div class="p-card">
+                                                <span class="tag">RECOMENDAÇÃO DO DIA</span>
+                                                <p class="nm">V60 — Etiópia Yirgacheffe</p>
+                                                <p class="nt">Processo lavado · notas de jasmim, limão e chá preto.</p>
+                                                <div class="row">
+                                                    <span class="p-chip">relação 1:15</span>
+                                                    <button class="p-go" data-go="2">Iniciar preparo</button>
+                                                </div>
+                                            </div>
+                                            <div class="p-stats">
+                                                <div><b>128</b><small>PREPAROS</small></div>
+                                                <div><b>12</b><small>FAVORITOS</small></div>
+                                                <div><b>4.9</b><small>AVALIAÇÃO</small></div>
+                                            </div>
+                                            <div class="p-list">
+                                                <p class="p-kicker" style="margin-top:12px">CARDÁPIO RÁPIDO</p>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#4a2c1a"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Espresso
+                                                            duplo</b><small>Intenso · 60 ml</small></span><span
+                                                        class="pr">R$ 8</span></div>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#b0713a"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Latte com
+                                                            aveia</b><small>Cremoso · 300 ml</small></span><span
+                                                        class="pr">R$ 13</span></div>
+                                            </div>
+                                        </section>
+
+                                        <section class="app-screen" data-screen="1">
+                                            <div class="p-head">
+                                                <span class="p-brand"><span class="ic"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span>Cardápio</span>
+                                                <button class="p-bell" tabindex="-1"><svg>
+                                                        <use href="#i-bell" />
+                                                    </svg></button>
+                                            </div>
+                                            <div class="p-search"><svg>
+                                                    <use href="#i-search" />
+                                                </svg><span>Buscar bebidas…</span></div>
+                                            <div class="p-list">
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#4a2c1a"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Espresso</b><small>Blend da
+                                                            casa · 30 ml</small></span><span class="pr">R$ 6</span>
+                                                </div>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#b0713a"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Latte</b><small>Leite
+                                                            vaporizado · 300 ml</small></span><span class="pr">R$
+                                                        11</span></div>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#7c5340"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>V60 Coado</b><small>Filtrado ·
+                                                            single origin</small></span><span class="pr">R$ 14</span>
+                                                </div>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#3f4a3c"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Cold Brew</b><small>18h de
+                                                            extração · 350 ml</small></span><span class="pr">R$
+                                                        12</span></div>
+                                                <div class="p-item"><span class="p-swatch"
+                                                        style="background:#8a4a2e"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span><span class="in"><b>Mocha</b><small>Chocolate 70% ·
+                                                            320 ml</small></span><span class="pr">R$ 13</span></div>
+                                            </div>
+                                        </section>
+
+                                        <section class="app-screen" data-screen="2">
+                                            <div class="p-head">
+                                                <span class="p-brand"><span class="ic"><svg>
+                                                            <use href="#i-cup" />
+                                                        </svg></span>Preparo</span>
+                                                <button class="p-bell" tabindex="-1"><svg>
+                                                        <use href="#i-bell" />
+                                                    </svg></button>
+                                            </div>
+                                            <p class="p-kicker">GUIA — V60 · RELAÇÃO 1:15</p>
+                                            <div class="brew-wrap">
+                                                <svg viewBox="0 0 196 196">
+                                                    <circle class="brew-track" cx="98" cy="98" r="86" />
+                                                    <circle class="brew-prog" id="brewProg" cx="98" cy="98" r="86"
+                                                        stroke-dasharray="540.35" stroke-dashoffset="540.35" />
+                                                </svg>
+                                                <div class="brew-center"><b
+                                                        id="brewTime">03:00</b><small>RESTANTES</small></div>
+                                            </div>
+                                            <div class="brew-chips"><span>água 250 g</span><span>café 16,6
+                                                    g</span><span>moagem média</span></div>
+                                            <ul class="brew-steps" id="brewSteps">
+                                                <li data-at="0"><span class="t">0:00</span>Bloom — despeje 50 g e espere
+                                                </li>
+                                                <li data-at="45"><span class="t">0:45</span>Primeira vazão, em círculos
+                                                </li>
+                                                <li data-at="90"><span class="t">1:30</span>Segunda vazão até 250 g</li>
+                                                <li data-at="165"><span class="t">2:45</span>Retire o filtro e sirva
+                                                </li>
+                                            </ul>
+                                        </section>
+
+                                        <nav class="app-nav" id="appNav">
+                                            <button class="active" data-nav="0"><svg>
+                                                    <use href="#i-home" />
+                                                </svg>INÍCIO</button>
+                                            <button data-nav="1"><svg>
+                                                    <use href="#i-list" />
+                                                </svg>CARDÁPIO</button>
+                                            <button data-nav="2"><svg>
+                                                    <use href="#i-clock" />
+                                                </svg>PREPARO</button>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stage-cap"><span data-en="TAP THE APP'S BOTTOM NAV TO EXPLORE">TOQUE NA NAVEGAÇÃO
+                                INFERIOR DO APP PARA EXPLORAR</span><span>CLIP 03 / 03</span></div>
+                    </div>
+
+                    <div class="meta">
+                        <div class="p-index" data-reveal><span class="num">03</span><span class="kind"
+                                data-en="MOBILE · ANDROID APP">MOBILE · APP ANDROID</span></div>
+                        <h3 data-reveal data-en="Café Lavado — Specialty Coffee Companion">Café Lavado, App de Café
+                            Especial</h3>
+                        <div class="repo-line" data-reveal>
+                            <code>~/kanerfx/cafe-lavado</code>
+                            <button class="icon-btn" data-copy="https://github.com/kanerfx/cafe-lavado"
+                                data-toast="Link do repositório copiado!" data-toast-en="Repo link copied!"
+                                aria-label="Copiar link do repositório" data-en-aria="Copy repository link"><svg>
+                                    <use href="#i-copy" />
+                                </svg></button>
+                        </div>
+                        <p data-reveal
+                            data-en="An Android companion for specialty-coffee lovers: a browsable menu, daily brew recommendations and guided brew timers with step-by-step extraction cues — named after the washed (lavado) process that defines a clean cup.">
+                            Um companion Android para quem ama café especial: cardápio navegável, recomendações diárias
+                            de preparo e timers guiados com etapas de extração em tempo real. Batizado pelo processo
+                            lavado que define uma xícara limpa e doce.</p>
+                        <ul class="hl" data-reveal>
+                            <li data-en="Guided brew timer with live step highlighting">Timer de preparo guiado com
+                                destaque ao vivo das etapas</li>
+                            <li data-en="Daily recommendation engine based on brew history">Motor de recomendação diária
+                                baseado no histórico de preparos</li>
+                            <li data-en="Bottom-nav architecture following Material patterns">Arquitetura com bottom-nav
+                                seguindo padrões Material</li>
+                        </ul>
+                        <div class="tags" data-reveal><span>Java</span><span>Android SDK</span><span>Material
+                                Design</span><span data-en="Mobile UX">UX Mobile</span></div>
+                        <div class="meta-actions" data-reveal>
+                            <a class="btn btn-primary" href="https://github.com/kanerfx/cafe-lavado" target="_blank"
+                                rel="noopener"><span data-en="Open on GitHub">Abrir no GitHub</span> <svg>
+                                    <use href="#i-upright" />
+                                </svg></a>
+                        </div>
+                        <p class="xref" data-reveal
+                            data-en="Résumé, p.01 — Java fundamentals &amp; AI-assisted daily workflow.">Currículo, p.01
+                            — fundamentos de Java &amp; fluxo diário assistido por IA.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============ STACK ============ -->
+        <section class="sec" id="stack">
+            <div class="wrap">
+                <div class="sec-head" data-reveal><span class="plus">+</span>
+                    <h2 data-en="STACK &amp; TOOLKIT">STACK &amp; FERRAMENTAS</h2><span class="rule"></span>
+                </div>
+                <div data-reveal data-stagger>
+                    <div class="srow rv-child">
+                        <span class="s-label">FRONT-END</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                                    alt="" loading="lazy">JavaScript</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+                                    alt="" loading="lazy">TypeScript</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                                    alt="" loading="lazy">React</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg"
+                                    alt="" loading="lazy">Angular</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                                    alt="" loading="lazy">HTML5</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                                    alt="" loading="lazy">CSS3</span>
+                        </div>
+                    </div>
+                    <div class="srow rv-child">
+                        <span class="s-label">BACK-END</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"
+                                    alt="" loading="lazy">Node.js</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                    alt="" loading="lazy">Python</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg"
+                                    alt="" loading="lazy">PHP</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+                                    alt="" loading="lazy">Java</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+                                    alt="" loading="lazy">C# / .NET</span>
+                        </div>
+                    </div>
+                    <div class="srow rv-child">
+                        <span class="s-label" data-en="APIS &amp; DATA">APIS &amp; DADOS</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-code" />
+                                </svg><span data-en="RESTful APIs">APIs RESTful</span></span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-filecode" />
+                                </svg>XML</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-code" />
+                                </svg>JSON</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-db" />
+                                </svg>SQL</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-db" />
+                                </svg><span data-en="Database fundamentals">Fundamentos de banco de dados</span></span>
+                        </div>
+                    </div>
+                    <div class="srow rv-child">
+                        <span class="s-label" data-en="CLOUD &amp; TOOLS">CLOUD &amp; FERRAMENTAS</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" alt=""
+                                    loading="lazy">AWS</span>
+                            <span class="s-tag"><img
+                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+                                    alt="" loading="lazy">Git</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-github" />
+                                </svg>GitHub</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-loop" />
+                                </svg><span data-en="Agile methodologies">Metodologias ágeis</span></span>
+                        </div>
+                    </div>
+                    <div class="srow rv-child">
+                        <span class="s-label" data-en="SOFTWARE QUALITY">QUALIDADE DE SOFTWARE</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-bug" />
+                                </svg><span data-en="Manual &amp; exploratory testing">Testes manuais e
+                                    exploratórios</span></span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-clip" />
+                                </svg><span data-en="Bug tracking">Identificação e registro de bugs</span></span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-doc" />
+                                </svg><span data-en="Release documentation">Documentação de resultados</span></span>
+                        </div>
+                    </div>
+                    <div class="srow rv-child">
+                        <span class="s-label" data-en="AI IN THE WORKFLOW">IA NO FLUXO</span>
+                        <div class="s-tags">
+                            <span class="s-tag"><img src="https://cdn.simpleicons.org/openai/ffffff" alt=""
+                                    loading="lazy">ChatGPT</span>
+                            <span class="s-tag"><img src="https://cdn.simpleicons.org/claude/D97757" alt=""
+                                    loading="lazy">Claude</span>
+                            <span class="s-tag"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt=""
+                                    loading="lazy">Gemini</span>
+                            <span class="s-tag"><svg class="t-ic">
+                                    <use href="#i-code" />
+                                </svg><span data-en="Code analysis &amp; docs">Análise de código &amp;
+                                    docs</span></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="stack-note" data-reveal
+                    data-en="Full list on my résumé — &quot;Competências Técnicas&quot;, page 01.">Lista completa no meu
+                    currículo --- "Competências Técnicas", página 01.</p>
+            </div>
+        </section>
+
+        <!-- ============ TRAJECTORY ============ -->
+        <section class="sec" id="path">
+            <div class="wrap">
+                <div class="sec-head" data-reveal><span class="plus">+</span>
+                    <h2 data-en="TRAJECTORY">TRAJETÓRIA</h2><span class="rule"></span>
+                </div>
+                <ol class="tl" data-reveal data-stagger>
+                    <li class="tl-item rv-child">
+                        <span class="tl-dot"></span>
+                        <p class="tl-period">JUL 2024 — JUL 2026</p>
+                        <h3 data-en="Founder &amp; Software Developer">Fundador &amp; Desenvolvedor de Software</h3>
+                        <p class="tl-org" data-en="Concierge – CCG · Garopaba, SC (remote)">Concierge – CCG · Garopaba,
+                            SC (remoto)</p>
+                        <ul class="hl">
+                            <li
+                                data-en="Ran the company's web platform end-to-end — requirements, development, delivery and production operation.">
+                                Conduzi a plataforma web da empresa de ponta a ponta — requisitos, desenvolvimento,
+                                entrega e operação em produção.</li>
+                            <li
+                                data-en="Built and documented REST API integrations, keeping data consistent and the codebase maintainable.">
+                                Construí e documentei integrações via APIs REST, garantindo a consistência dos dados e
+                                facilitando a manutenção do código.</li>
+                            <li
+                                data-en="Manual &amp; exploratory testing on every release; Git/GitHub and agile rituals steering priorities.">
+                                Testes manuais e exploratórios a cada nova funcionalidade; Git/GitHub e ritos ágeis
+                                orientando as prioridades.</li>
+                        </ul>
+                    </li>
+                    <li class="tl-item rv-child">
+                        <span class="tl-dot"></span>
+                        <p class="tl-period" data-en="IN PROGRESS — EXPECTED 2027">EM ANDAMENTO — CONCLUSÃO 2027</p>
+                        <h3 data-en="Internet Systems Technology (Technologist)">Tecnólogo em Sistemas para Internet
+                        </h3>
+                        <p class="tl-org">IFSC — Instituto Federal de Santa Catarina</p>
+                        <ul class="hl">
+                            <li
+                                data-en="Focus on software development: programming logic, web programming and databases.">
+                                Ênfase em desenvolvimento de software: lógica de programação, programação web e banco de
+                                dados.</li>
+                        </ul>
+                    </li>
+                    <li class="tl-item rv-child">
+                        <span class="tl-dot"></span>
+                        <p class="tl-period" data-en="CONCLUDED NOV 2024">CONCLUÍDO EM NOV 2024</p>
+                        <h3 data-en="Biotechnology Technician">Técnico em Biotecnologia</h3>
+                        <p class="tl-org">IFSC — Instituto Federal de Santa Catarina</p>
+                        <ul class="hl">
+                            <li
+                                data-en="Before code, cells — the lab discipline carried straight into how I test software.">
+                                Antes do código, células — a disciplina de laboratório virou minha forma de testar
+                                software.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section class="sec contact" id="contact">
+            <div class="wrap">
+                <div class="sec-head" data-reveal><span class="plus">+</span>
+                    <h2 data-en="CONTACT">CONTATO</h2>
+                </div>
+                <h2 class="big" data-reveal data-en="Let's build something worth <em>shipping.</em>">Vamos construir
+                    algo que valha a pena <em>entregar.</em></h2>
+                <p class="lead" data-reveal style="--d:.12s"
+                    data-en="I'm looking for an internship where I can own features end-to-end — remote or hybrid, from Garopaba or anywhere.">
+                    Estou em busca de um estágio em que eu possa cuidar de features de ponta a ponta, remoto ou
+                    híbrido, de Garopaba para qualquer lugar.</p>
+                <button class="mail-btn" data-copy="rgomespinto19@gmail.com" data-toast="E-mail copiado — até já!"
+                    data-toast-en="Email copied — talk soon!" aria-label="Copiar e-mail" data-en-aria="Copy email"
+                    data-reveal style="--d:.22s">
+                    <svg>
+                        <use href="#i-mail" />
+                    </svg>rgomespinto19@gmail.com<svg class="cp">
+                        <use href="#i-copy" />
+                    </svg>
+                </button>
+                <div class="contact-links" data-reveal style="--d:.3s">
+                    <a class="btn btn-ghost" href="https://github.com/kanerfx" target="_blank" rel="noopener"><svg>
+                            <use href="#i-github" />
+                        </svg>GitHub</a>
+                    <a class="btn btn-ghost" href="https://linkedin.com/in/renan-gomes-48944a409" target="_blank"
+                        rel="noopener"><svg>
+                            <use href="#i-linkedin" />
+                        </svg>LinkedIn</a>
+                    <a class="btn btn-ghost" href="https://wa.me/5548992001906" target="_blank" rel="noopener"><svg>
+                            <use href="#i-phone" />
+                        </svg>WhatsApp</a>
+                </div>
+                <p class="avail" data-reveal style="--d:.4s"><span class="pulse-dot"></span><span
+                        data-en="AVAILABLE FOR INTERNSHIPS — REMOTE OR HYBRID · GAROPABA, SC (BRT)">DISPONÍVEL PARA
+                        ESTÁGIO; REMOTO OU HÍBRIDO · GAROPABA, SC (BRT)</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap foot-in">
+            <span>© <span id="year">2025</span> RENAN GOMES <> <span data-en="DESIGNED &amp; CODED FROM SCRATCH">DESIGN
+                        E
+                        CÓDIGO DO ZERO</span></span>
+            <span data-en="VISUAL IDENTITY CARRIED OVER FROM MY RÉSUMÉ — SAME STARS, SAME NAVY">IDENTIDADE VISUAL
+                HERDADA DO MEU CURRÍCULO - MESMAS ESTRELAS, MESMO AZUL-MARINHO</span>
+            <a class="to-top" href="#top"><svg>
+                    <use href="#i-down" />
+                </svg><span data-en="BACK TO ORBIT">VOLTAR À ÓRBITA</span></a>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status"><svg>
+            <use href="#i-check" />
+        </svg><span id="toastMsg">Copiado</span></div>
+
+    <script>
+        /* =====================================================================
+           REAL MEDIA — DROP YOUR ACTUAL SCREENSHOTS / CLIPS HERE
+           ---------------------------------------------------------------------
+           Each project ships with a stylized LIVE recreation. When you have
+           real assets:
+           - Paste a screenshot path  →  "img/dental.png"
+           - Paste a video path       →  "clips/dental.mp4"  (autoplays, muted, looped)
+           - For the app, use an object per screen, or a single string for the
+             whole phone screen. Leave null to keep the live recreation.
+        ===================================================================== */
+        const REAL_MEDIA = {
+            dental: null,                 // e.g. "screenshots/dental.png" or "clips/dental.mp4"
+            freela: null,                 // e.g. "clips/freela.mp4"
+            cafe: null                  // e.g. "clips/cafe.mp4"  OR  { home:"...", menu:"...", brew:"..." }
+        };
+
+        const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const FINE = matchMedia('(pointer: fine)').matches;
+        const $ = (s, c = document) => c.querySelector(s);
+        const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+        const fmt = s => { s = Math.floor(s); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
+
+        /* hide any remote logo that fails to load (graceful degradation) */
+        document.addEventListener('error', e => {
+            const t = e.target;
+            if (t && t.tagName === 'IMG') t.style.display = 'none';
+        }, true);
+
+        /* =====================================================================
+           I18N — PT-BR (default) ⇄ EN
+           Every translatable element carries data-en with its English HTML.
+           The Portuguese source is captured from the DOM on first swap.
+        ===================================================================== */
+        let LANG = 'pt';
+        const typedState = { roles: null, r: 0, i: 0, del: false };
+        const I18N = {
+            title: {
+                pt: 'Renan G.; Desenvolvedor Full-Stack - Portfólio',
+                en: 'Renan G.; Full-Stack Developer - Portfolio'
+            },
+            roles: {
+                pt: ['desenvolvedor full-stack', 'fundador na Concierge – CCG', 'IFSC — conclusão 2027', 'construtor assistido por IA'],
+                en: ['full-stack developer', 'founder @ Concierge – CCG', 'IFSC - class of 2027', 'AI-assisted builder']
+            }
+        };
+
+        function setLang(l) {
+            LANG = l;
+            document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+            document.title = I18N.title[l];
+            $$('[data-en]').forEach(el => {
+                if (!el.dataset.ptHtml) el.dataset.ptHtml = el.innerHTML;
+                el.innerHTML = l === 'pt' ? el.dataset.ptHtml : el.dataset.en;
+            });
+            $$('[data-en-aria]').forEach(el => {
+                if (!el.dataset.ptAria) el.dataset.ptAria = el.getAttribute('aria-label') || '';
+                el.setAttribute('aria-label', l === 'pt' ? el.dataset.ptAria : el.dataset.enAria);
+            });
+            const lb = $('#langLabel');
+            if (lb) lb.textContent = l === 'pt' ? 'EN' : 'PT';
+            const btn = $('#langBtn');
+            if (btn) btn.setAttribute('aria-label', l === 'pt' ? 'Mudar para inglês' : 'Switch to Portuguese');
+            // restart the typing loop with the new language
+            typedState.roles = I18N.roles[l];
+            typedState.r = 0; typedState.i = 0; typedState.del = false;
+            const t = $('#typed'); if (t) t.textContent = '';
+            try { localStorage.setItem('rg-lang', l); } catch (e) { }
+        }
+        let savedLang = 'pt';
+        try { savedLang = localStorage.getItem('rg-lang') || 'pt'; } catch (e) { }
+        $('#langBtn').addEventListener('click', () => setLang(LANG === 'pt' ? 'en' : 'pt'));
+        setLang(savedLang);
+
+        /* ---------- split hero title into animatable letters ---------- */
+        $$('[data-split]').forEach(el => {
+            const t = el.textContent; el.textContent = '';
+            [...t].forEach((ch, i) => {
+                const s = document.createElement('span');
+                s.className = 'ch'; s.style.setProperty('--i', i);
+                s.textContent = ch === ' ' ? '\u00A0' : ch;
+                el.appendChild(s);
+            });
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('loaded')));
+
+        /* ---------- duplicate marquee for a seamless loop ---------- */
+        (() => { const tr = $('#mqTrack'); if (tr) tr.innerHTML += tr.innerHTML; })();
+
+        /* ---------- starfield + constellation lines + shooting stars ---------- */
+        (() => {
+            const cvs = $('#stars'), ctx = cvs.getContext('2d');
+            let W, H, stars = [], mouse = { x: -9e3, y: -9e3 }, shot = null, nextShot = 4000;
+            const DPR = Math.min(devicePixelRatio || 1, 2);
+            function resize() {
+                W = innerWidth; H = innerHeight;
+                cvs.width = W * DPR; cvs.height = H * DPR;
+                cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+                ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+                const n = Math.min(220, Math.max(90, Math.round(W * H / 9000)));
+                stars = Array.from({ length: n }, () => ({
+                    x: Math.random() * W, y: Math.random() * H,
+                    r: .6 + Math.random() * 1.1, a: .2 + Math.random() * .55,
+                    ph: Math.random() * Math.PI * 2, tw: .4 + Math.random() * 1.2,
+                    vx: (Math.random() - .5) * .06, vy: (Math.random() - .5) * .06
+                }));
+            }
+            addEventListener('resize', resize); resize();
+            addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+            function draw(t) {
+                ctx.clearRect(0, 0, W, H);
+                const time = t / 1000;
+                for (const s of stars) {
+                    s.x += s.vx; s.y += s.vy;
+                    if (s.x < -10) s.x = W + 10; if (s.x > W + 10) s.x = -10;
+                    if (s.y < -10) s.y = H + 10; if (s.y > H + 10) s.y = -10;
+                    const a = s.a * (.55 + .45 * Math.sin(time * s.tw + s.ph));
+                    ctx.fillStyle = `rgba(190,196,255,${a})`;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 7); ctx.fill();
+                }
+                ctx.lineWidth = 1;
+                for (let i = 0; i < stars.length; i++) {
+                    for (let j = i + 1; j < stars.length; j++) {
+                        const a = stars[i], b = stars[j];
+                        const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+                        if (d2 < 8100) {
+                            const al = (1 - Math.sqrt(d2) / 90) * .09;
+                            ctx.strokeStyle = `rgba(170,176,247,${al})`;
+                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                        }
+                    }
+                    const s = stars[i];
+                    const dx = s.x - mouse.x, dy = s.y - mouse.y, d = Math.hypot(dx, dy);
+                    if (d < 150) {
+                        ctx.strokeStyle = `rgba(199,203,255,${(1 - d / 150) * .25})`;
+                        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                    }
+                }
+                if (!shot && t > nextShot) {
+                    shot = {
+                        x: W * (.25 + Math.random() * .6), y: H * .06 + Math.random() * H * .12,
+                        vx: -(5 + Math.random() * 4), vy: 3 + Math.random() * 2, life: 1
+                    };
+                }
+                if (shot) {
+                    shot.x += shot.vx; shot.y += shot.vy; shot.life -= .016;
+                    for (let k = 0; k < 6; k++) {
+                        ctx.strokeStyle = `rgba(199,203,255,${shot.life * (1 - k / 6) * .8})`;
+                        ctx.beginPath();
+                        ctx.moveTo(shot.x - shot.vx * k * 2.2, shot.y - shot.vy * k * 2.2);
+                        ctx.lineTo(shot.x - shot.vx * (k + 1) * 2.2, shot.y - shot.vy * (k + 1) * 2.2);
+                        ctx.stroke();
+                    }
+                    if (shot.life <= 0) { shot = null; nextShot = t + 5000 + Math.random() * 7000; }
+                }
+            }
+            if (REDUCED) { draw(0); return; }
+            (function loop(t) { draw(t); requestAnimationFrame(loop); })(0);
+        })();
+
+        /* ---------- custom cursor ---------- */
+        (() => {
+            if (!FINE || REDUCED) return;
+            document.body.classList.add('has-cursor');
+            const dot = $('#cDot'), ring = $('#cRing');
+            let tx = innerWidth / 2, ty = innerHeight / 2, rx = tx, ry = ty, sc = 1, tsc = 1;
+            addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; });
+            document.addEventListener('mouseover', e => {
+                tsc = e.target.closest('a, button, .tags span, .s-tag, .sat') ? 1.7 : 1;
+                ring.classList.toggle('big', tsc > 1);
+            });
+            document.addEventListener('mouseleave', () => { dot.style.opacity = ring.style.opacity = 0; });
+            document.addEventListener('mouseenter', () => { dot.style.opacity = ring.style.opacity = 1; });
+            (function loop() {
+                rx += (tx - rx) * .18; ry += (ty - ry) * .18; sc += (tsc - sc) * .2;
+                dot.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+                ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%) scale(${sc})`;
+                requestAnimationFrame(loop);
+            })();
+        })();
+
+        /* ---------- progress bar + nav state ---------- */
+        (() => {
+            const bar = $('#progress'), nav = $('#nav');
+            const onScroll = () => {
+                const max = document.documentElement.scrollHeight - innerHeight;
+                bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+                nav.classList.toggle('scrolled', scrollY > 40);
+            };
+            addEventListener('scroll', onScroll, { passive: true }); onScroll();
+        })();
+
+        /* ---------- mobile menu ---------- */
+        (() => {
+            $('#burger').addEventListener('click', () => document.body.classList.toggle('menu-open'));
+            $$('.menu a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+            addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('menu-open'); });
+        })();
+
+        /* ---------- typed roles ---------- */
+        (() => {
+            const el = $('#typed');
+            if (REDUCED) { el.textContent = typedState.roles[0]; return; }
+            (function tick() {
+                const word = typedState.roles[typedState.r];
+                el.textContent = word.slice(0, typedState.i);
+                let wait = typedState.del ? 30 : 58;
+                if (!typedState.del && typedState.i === word.length) { wait = 1900; typedState.del = true; }
+                else if (typedState.del && typedState.i === 0) { typedState.del = false; typedState.r = (typedState.r + 1) % typedState.roles.length; wait = 350; }
+                else typedState.i += typedState.del ? -1 : 1;
+                setTimeout(tick, wait);
+            })();
+        })();
+
+        /* ---------- stagger children + reveal observer + counters ---------- */
+        $$('[data-stagger]').forEach(g => [...g.children].forEach((c, i) => c.style.setProperty('--d', (i * .09) + 's')));
+
+        function runCounters(group) {
+            $$('[data-count]', group).forEach(el => {
+                const target = +el.dataset.count, pad = +el.dataset.pad || 0;
+                const t0 = performance.now(), dur = 1300;
+                (function step(t) {
+                    const p = Math.min(1, (t - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+                    el.textContent = String(v).padStart(pad, '0');
+                    if (p < 1) requestAnimationFrame(step);
+                })(t0);
+            });
+        }
+        const io = new IntersectionObserver(es => es.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('in');
+            if (e.target.hasAttribute('data-count-group')) runCounters(e.target);
+            io.unobserve(e.target);
+        }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+        $$('[data-reveal]').forEach(el => io.observe(el));
+
+        /* ---------- orbit system ---------- */
+        (() => {
+            const orbit = $('#orbit'); if (!orbit) return;
+            const sats = $$('.sat', orbit), lines = [$('#ol1'), $('#ol2'), $('#ol3')];
+            let t = 0, last = performance.now(), slow = 1, targetSlow = 1, active = true;
+            orbit.addEventListener('pointerenter', () => targetSlow = .12);
+            orbit.addEventListener('pointerleave', () => targetSlow = 1);
+            new IntersectionObserver(es => active = es[0].isIntersecting).observe(orbit);
+
+            function place() {
+                const w = orbit.offsetWidth, cx = w / 2, cy = orbit.offsetHeight / 2;
+                sats.forEach((s, i) => {
+                    const R = +s.dataset.r * w, sp = +s.dataset.sp, ph = +s.dataset.ph;
+                    const a = ph + t * sp;
+                    const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+                    s.style.transform = `translate3d(${x}px,${y}px,0)`;
+                    lines[i].setAttribute('x1', cx); lines[i].setAttribute('y1', cy);
+                    lines[i].setAttribute('x2', x); lines[i].setAttribute('y2', y);
+                });
+            }
+            place();
+            if (REDUCED) return;
+            (function loop(now) {
+                const dt = Math.min(.05, (now - last) / 1000); last = now;
+                if (active) { slow += (targetSlow - slow) * .06; t += dt * slow; place(); }
+                requestAnimationFrame(loop);
+            })(last);
+        })();
+
+        /* ---------- REAL MEDIA swap ---------- */
+        function makeMedia(url) {
+            const isVideo = /\.(mp4|webm|mov)(\?.*)?$/i.test(url);
+            const el = document.createElement(isVideo ? 'video' : 'img');
+            el.className = 'real-media';
+            if (isVideo) { el.src = url; el.autoplay = el.muted = el.loop = true; el.playsInline = true; }
+            else { el.src = url; el.alt = 'Project media'; }
+            return el;
+        }
+        function applyRealMedia() {
+            [['dental', 'dental'], ['freela', 'freela']].forEach(([stage, key]) => {
+                const url = REAL_MEDIA[key]; if (!url) return;
+                const stageEl = $(`[data-stage="${stage}"]`), vp = $('.clip-viewport', stageEl);
+                vp.innerHTML = ''; vp.appendChild(makeMedia(url)); stageEl.classList.add('is-real');
+            });
+            if (REAL_MEDIA.cafe) {
+                const stageEl = $('[data-stage="cafe"]'), screen = $('.phone-screen', stageEl);
+                if (typeof REAL_MEDIA.cafe === 'string') {
+                    screen.innerHTML = ''; screen.appendChild(makeMedia(REAL_MEDIA.cafe));
+                } else {
+                    const map = { home: 0, menu: 1, brew: 2 };
+                    for (const k in map) {
+                        if (!REAL_MEDIA.cafe[k]) continue;
+                        const sc = $(`.app-screen[data-screen="${map[k]}"]`, screen);
+                        sc.innerHTML = ''; sc.appendChild(makeMedia(REAL_MEDIA.cafe[k]));
+                    }
+                }
+                stageEl.classList.add('is-real');
+            }
+        }
+        applyRealMedia();
+
+        /* ---------- auto-scrolling browser clips (REC tours) ---------- */
+        function setupClip(stage) {
+            if (stage.classList.contains('is-real') || !$('.clip-content', stage)) return;
+            const vp = $('.clip-viewport', stage), content = $('.clip-content', stage);
+            const timeEl = $('.t-time', stage), btn = $('.t-toggle', stage), thumb = $('.clip-thumb', stage);
+            let pos = 0, playing = !REDUCED, visible = true, state = 'down', hold = 0, sec = 0, max = 0;
+            let last = performance.now();
+            const SPEED = 26, HOLD_T = 1.6;
+
+            const recalc = () => { max = Math.max(0, content.scrollHeight - vp.clientHeight); };
+            recalc(); addEventListener('resize', recalc);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(recalc);
+            setTimeout(recalc, 1800);
+
+            const setPlaying = p => { playing = p; stage.classList.toggle('paused', !p); };
+            if (!playing) stage.classList.add('paused');
+            btn.addEventListener('click', () => setPlaying(!playing));
+            new IntersectionObserver(es => visible = es[0].isIntersecting, { rootMargin: '80px' }).observe(stage);
+
+            (function loop(now) {
+                const dt = Math.min(.05, (now - last) / 1000); last = now;
+                if (playing && visible && max > 0) {
+                    sec += dt; timeEl.textContent = fmt(sec);
+                    if (state === 'down') { pos += SPEED * dt; if (pos >= max) { pos = max; state = 'hold'; hold = 0; } }
+                    else if (state === 'hold') { hold += dt; if (hold >= HOLD_T) state = 'rewind'; }
+                    else { pos -= (max / 1.1) * dt; if (pos <= 0) { pos = 0; state = 'down'; } }
+                    content.style.transform = `translate3d(0,${-pos}px,0)`;
+                    const track = $('.clip-track', stage);
+                    if (track && thumb) thumb.style.transform = `translateY(${(pos / max) * (track.clientHeight - 44)}px)`;
+                }
+                requestAnimationFrame(loop);
+            })(last);
+        }
+        $$('[data-clip]').forEach(setupClip);
+
+        /* ---------- phone: screen cycling + interactive nav + brew timer ---------- */
+        (() => {
+            const stage = $('[data-stage="cafe"]'); if (!stage || stage.classList.contains('is-real')) return;
+            const screens = $$('.app-screen', stage), navBtns = $$('#appNav button', stage);
+            const timeEl = $('.t-time', stage), btn = $('.t-toggle', stage);
+            const brewProg = $('#brewProg'), brewTimeEl = $('#brewTime'), stepEls = $$('#brewSteps li');
+            const C = 540.35, TOTAL = 165;
+            let idx = 0, playing = !REDUCED, visible = true, sec = 0, cycleT = 0, brewSec = 0, last = performance.now();
+
+            const go = n => {
+                idx = n; cycleT = 0;
+                screens.forEach(s => s.classList.toggle('active', +s.dataset.screen === n));
+                navBtns.forEach(b => b.classList.toggle('active', +b.dataset.nav === n));
+            };
+            navBtns.forEach(b => b.addEventListener('click', () => go(+b.dataset.nav)));
+            $$('[data-go]', stage).forEach(b => b.addEventListener('click', () => go(+b.dataset.go)));
+
+            const setPlaying = p => { playing = p; stage.classList.toggle('paused', !p); };
+            if (!playing) stage.classList.add('paused');
+            btn.addEventListener('click', () => setPlaying(!playing));
+            new IntersectionObserver(es => visible = es[0].isIntersecting, { rootMargin: '80px' }).observe(stage);
+
+            (function loop(now) {
+                const dt = Math.min(.05, (now - last) / 1000); last = now;
+                if (playing && visible) {
+                    sec += dt; timeEl.textContent = fmt(sec);
+                    cycleT += dt; if (cycleT > 4.2) go((idx + 1) % 3);
+                    if (idx === 2) {
+                        brewSec = (brewSec + dt) % TOTAL;
+                        brewTimeEl.textContent = fmt(TOTAL - brewSec);
+                        brewProg.style.strokeDashoffset = C * (1 - brewSec / TOTAL);
+                        stepEls.forEach(li => li.classList.toggle('on', brewSec >= +li.dataset.at));
+                    }
+                }
+                requestAnimationFrame(loop);
+            })(last);
+        })();
+
+        /* ---------- 3D tilt on device frames ---------- */
+        $$('[data-tilt]').forEach(el => {
+            if (!FINE || REDUCED) return;
+            el.addEventListener('pointermove', e => {
+                const r = el.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+                el.style.transition = 'transform .08s linear';
+                el.style.transform = `perspective(1100px) rotateX(${-y * 6.5}deg) rotateY(${x * 8.5}deg)`;
+            });
+            el.addEventListener('pointerleave', () => {
+                el.style.transition = 'transform .55s ease';
+                el.style.transform = '';
+            });
+        });
+
+        /* ---------- copy-to-clipboard + toast (event delegation: survives i18n re-renders) ---------- */
+        const toast = $('#toast'), toastMsg = $('#toastMsg'); let toastT;
+        function showToast(msg) {
+            toastMsg.textContent = msg; toast.classList.add('show');
+            clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove('show'), 2600);
+        }
+        document.addEventListener('click', async e => {
+            const b = e.target.closest('[data-copy]');
+            if (!b) return;
+            const v = b.dataset.copy;
+            try { await navigator.clipboard.writeText(v); }
+            catch {
+                const ta = document.createElement('textarea'); ta.value = v;
+                document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+            }
+            const msg = LANG === 'pt' ? b.dataset.toast : (b.dataset.toastEn || b.dataset.toast);
+            showToast(msg || (LANG === 'pt' ? 'Copiado para a área de transferência' : 'Copied to clipboard'));
+        });
+
+        /* ---------- footer year ---------- */
+        $('#year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
